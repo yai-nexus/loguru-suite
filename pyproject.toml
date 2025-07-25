@@ -1,0 +1,15 @@
+[tool.uv.workspace]
+members = [
+    "packages/yai-loguru",
+    "packages/yai-loguru-file-sink",
+    "packages/yai-loguru-sls-sink",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "aliyun-log-python-sdk>=0.7.8",
+]

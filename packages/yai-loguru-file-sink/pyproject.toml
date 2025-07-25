@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "yai-loguru-file-sink"
+version = "0.1.0"
+description = "A file sink plugin for yai-loguru."
+authors = [
+    { name="YAI-Nexus", email="contact@yai-nexus.com" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Logging",
+]
+dependencies = [
+    "loguru>=0.7.0",
+]
+
+[tool.uv.sources]
+yai-loguru = { workspace = true }
+
+[project.entry-points."yai_loguru.plugins"]
+file_sink = "yai_loguru_file_sink:FileSinkPlugin"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/yai_loguru_file_sink"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/yai_loguru_file_sink/py.typed" = "yai_loguru_file_sink/py.typed"
