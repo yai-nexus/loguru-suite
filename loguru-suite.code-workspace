@@ -5,20 +5,8 @@
 			"path": "."
 		},
 		{
-			"name": "yai-loguru (Core)",
-			"path": "./packages/yai-loguru"
-		},
-		{
-			"name": "yai-loguru-file-sink (Plugin)",
-			"path": "./packages/yai-loguru-file-sink"
-		},
-		{
-			"name": "Examples",
-			"path": "./examples"
-		},
-		{
-			"name": "Scripts",
-			"path": "./scripts"
+			"name": "yai-loguru-sinks",
+			"path": "./packages/yai-loguru-sinks"
 		}
 	],
 	"settings": {

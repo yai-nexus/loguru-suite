@@ -1,8 +1,6 @@
 [tool.uv.workspace]
 members = [
-    "packages/yai-loguru",
-    "packages/yai-loguru-file-sink",
-    "packages/yai-loguru-sls-sink",
+    "packages/yai-loguru-sinks",
 ]
 
 [tool.uv]
@@ -12,4 +10,7 @@ dev-dependencies = [
     "black>=23.0.0",
     "ruff>=0.1.0",
     "aliyun-log-python-sdk>=0.7.8",
+    "loguru>=0.7.0",
+    "loguru-config>=0.1.0",
+    "pyyaml>=6.0",
 ]
