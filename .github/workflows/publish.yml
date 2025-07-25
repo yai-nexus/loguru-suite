@@ -1,0 +1,95 @@
+name: 发布到 PyPI
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送以 v 开头的标签时触发，如 v0.2.0
+  workflow_dispatch:  # 允许手动触发
+    inputs:
+      version:
+        description: '发布版本号 (例如: 0.2.1)'
+        required: true
+        type: string
+      test_pypi:
+        description: '发布到测试 PyPI'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 设置 Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 安装 uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "latest"
+        
+    - name: 更新版本号 (手动触发时)
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        cd packages/yai-loguru-sinks
+        sed -i 's/version = ".*"/version = "${{ github.event.inputs.version }}"/' pyproject.toml
+        
+    - name: 构建包
+      run: |
+        cd packages/yai-loguru-sinks
+        uv build
+        
+    - name: 检查包内容
+      run: |
+        cd packages/yai-loguru-sinks
+        ls -la dist/
+        
+    - name: 发布到测试 PyPI
+      if: github.event.inputs.test_pypi == 'true'
+      env:
+        UV_PUBLISH_USERNAME: __token__
+        UV_PUBLISH_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      run: |
+        cd packages/yai-loguru-sinks
+        uv publish --repository testpypi
+        
+    - name: 发布到正式 PyPI
+      if: github.event.inputs.test_pypi != 'true'
+      env:
+        UV_PUBLISH_USERNAME: __token__
+        UV_PUBLISH_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        cd packages/yai-loguru-sinks
+        uv publish
+        
+    - name: 创建 GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body: |
+          ## 🚀 yai-loguru-sinks ${{ github.ref_name }}
+          
+          ### 📦 安装
+          ```bash
+          pip install yai-loguru-sinks==${{ github.ref_name }}
+          ```
+          
+          ### 📋 更新内容
+          请查看 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) 了解详细更新内容。
+          
+          ### 🔗 相关链接
+          - [PyPI 页面](https://pypi.org/project/yai-loguru-sinks/${{ github.ref_name }}/)
+          - [文档](https://github.com/${{ github.repository }}/blob/main/README.md)
+          - [示例代码](https://github.com/${{ github.repository }}/tree/main/examples)
+        draft: false
+        prerelease: false
