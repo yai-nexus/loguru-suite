@@ -7,6 +7,10 @@
 		{
 			"name": "yai-loguru-sinks",
 			"path": "./packages/yai-loguru-sinks"
+		},
+		{
+			"name": "Examples",
+			"path": "./examples"
 		}
 	],
 	"settings": {

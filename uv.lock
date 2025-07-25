@@ -10,6 +10,7 @@ resolution-markers = [
 [manifest]
 members = [
     "yai-loguru-sinks",
+    "yai-loguru-sinks-examples",
 ]
 
 [manifest.dependency-groups]
@@ -1648,5 +1649,35 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.0.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
+]
+provides-extras = ["dev"]
+
+[[package]]
+name = "yai-loguru-sinks-examples"
+version = "0.1.0"
+source = { virtual = "examples" }
+dependencies = [
+    { name = "loguru" },
+    { name = "loguru-config" },
+    { name = "pyyaml" },
+    { name = "yai-loguru-sinks" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "pytest", version = "8.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "pytest", version = "8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "pytest-cov", version = "5.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "pytest-cov", version = "6.2.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "loguru" },
+    { name = "loguru-config" },
+    { name = "pytest", marker = "extra == 'dev'" },
+    { name = "pytest-cov", marker = "extra == 'dev'" },
+    { name = "pyyaml" },
+    { name = "yai-loguru-sinks", editable = "packages/yai-loguru-sinks" },
 ]
 provides-extras = ["dev"]

@@ -11,8 +11,7 @@ from loguru import logger
 # 方式一：配置驱动（推荐）
 def config_driven_example():
     """配置驱动的使用方式"""
-    from yai_loguru_sinks import setup_extended_config
-    from loguru_config import LoguruConfig
+    from yai_loguru_sinks import setup_extended_config, create_config_from_file
     
     # 设置环境变量（实际使用中应该在环境中设置）
     os.environ.update({
@@ -24,8 +23,7 @@ def config_driven_example():
     setup_extended_config()
     
     # 从配置文件加载
-    config = LoguruConfig()
-    config.load('examples/logging.yaml')
+    config = create_config_from_file('configs/logging.yaml')
     
     # 现在可以直接使用 logger
     logger.info("这是一条信息日志")
@@ -71,13 +69,11 @@ def direct_sink_example():
 # 方式三：混合使用
 def hybrid_example():
     """混合使用配置文件和代码的方式"""
-    from yai_loguru_sinks import setup_extended_config, create_sls_sink
-    from loguru_config import LoguruConfig
+    from yai_loguru_sinks import setup_extended_config, create_config_from_file, create_sls_sink
     
     # 先从配置文件加载基础配置
     setup_extended_config()
-    config = LoguruConfig()
-    config.load('examples/logging.yaml')
+    config = create_config_from_file('configs/logging.yaml')
     
     # 然后根据运行时条件添加额外的 sink
     if os.getenv('ENABLE_EXTRA_SLS') == 'true':
@@ -143,20 +139,18 @@ def compare_with_old_plugin_system():
 # 方式五：多环境配置示例
 def multi_environment_example():
     """多环境配置示例"""
-    from yai_loguru_sinks import setup_extended_config
-    from loguru_config import LoguruConfig
+    from yai_loguru_sinks import setup_extended_config, create_config_from_file
     
     # 根据环境变量选择配置文件
     env = os.getenv('ENVIRONMENT', 'development')
-    config_file = f'examples/logging-{env}.yaml'
+    config_file = f'configs/logging-{env}.yaml'
     
     # 如果环境特定配置不存在，使用默认配置
     if not os.path.exists(config_file):
-        config_file = 'examples/logging.yaml'
+        config_file = 'configs/logging.yaml'
     
     setup_extended_config()
-    config = LoguruConfig()
-    config.load(config_file)
+    config = create_config_from_file(config_file)
     
     logger.info(f"使用 {env} 环境配置")
 

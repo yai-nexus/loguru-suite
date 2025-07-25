@@ -33,15 +33,6 @@ handlers:
     level: DEBUG
     format: "<green>{time:HH:mm:ss}</green> | <level>{level}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | {message}"
 
-# 全局配置
-level: INFO
-
-# 额外字段
-extra:
-  app_name: "my-application"
-  version: "1.0.0"
-  environment: "production"
-
 # 环境变量说明：
 # SLS_ACCESS_KEY_ID: 阿里云访问密钥 ID
 # SLS_ACCESS_KEY_SECRET: 阿里云访问密钥 Secret
