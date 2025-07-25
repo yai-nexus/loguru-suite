@@ -1,13 +1,12 @@
 name: 发布到 PyPI
 
 on:
-  push:
-    tags:
-      - 'v*'  # 当推送以 v 开头的标签时触发，如 v0.2.0
-  workflow_dispatch:  # 允许手动触发
+  release:
+    types: [published]
+  workflow_dispatch:
     inputs:
       version:
-        description: '发布版本号 (例如: 0.2.1)'
+        description: '版本号 (如: 0.2.1)'
         required: true
         type: string
       test_pypi:
@@ -17,7 +16,7 @@ on:
         default: false
 
 jobs:
-  build-and-publish:
+  publish:
     runs-on: ubuntu-latest
     
     steps:
@@ -34,62 +33,134 @@ jobs:
       with:
         version: "latest"
         
-    - name: 更新版本号 (手动触发时)
+    - name: 获取版本信息
+      id: version
+      run: |
+        if [[ "${{ github.event_name }}" == "release" ]]; then
+          # 从 Release 标签获取版本号
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"  # 移除 v 前缀
+          IS_PRERELEASE="${{ github.event.release.prerelease }}"
+        else
+          # 从手动输入获取版本号
+          VERSION="${{ github.event.inputs.version }}"
+          IS_PRERELEASE="false"
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
+        echo "发布版本: $VERSION"
+        echo "预发布: $IS_PRERELEASE"
+        
+    - name: 更新版本号
       if: github.event_name == 'workflow_dispatch'
       run: |
         cd packages/yai-loguru-sinks
-        sed -i 's/version = ".*"/version = "${{ github.event.inputs.version }}"/' pyproject.toml
+        sed -i "s/version = \".*\"/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
         
     - name: 构建包
       run: |
         cd packages/yai-loguru-sinks
         uv build
         
-    - name: 检查包内容
+    - name: 检查包
+      run: |
+        cd packages/yai-loguru-sinks
+        uv run --with twine twine check dist/*
+        
+    - name: 显示包信息
       run: |
         cd packages/yai-loguru-sinks
         ls -la dist/
+        echo "=== 包内容 ==="
+        uv run --with twine twine check dist/* --strict
         
     - name: 发布到测试 PyPI
-      if: github.event.inputs.test_pypi == 'true'
+      if: |
+        (github.event_name == 'release' && github.event.release.prerelease == true) ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.test_pypi == 'true')
       env:
-        UV_PUBLISH_USERNAME: __token__
-        UV_PUBLISH_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        UV_PUBLISH_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
       run: |
         cd packages/yai-loguru-sinks
+        echo "发布到测试 PyPI..."
         uv publish --repository testpypi
         
     - name: 发布到正式 PyPI
-      if: github.event.inputs.test_pypi != 'true'
+      if: |
+        (github.event_name == 'release' && github.event.release.prerelease == false) ||
+        (github.event_name == 'workflow_dispatch' && github.event.inputs.test_pypi == 'false')
       env:
-        UV_PUBLISH_USERNAME: __token__
-        UV_PUBLISH_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
       run: |
         cd packages/yai-loguru-sinks
+        echo "发布到正式 PyPI..."
         uv publish
         
-    - name: 创建 GitHub Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
+    - name: 提交版本更新
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add packages/yai-loguru-sinks/pyproject.toml
+        git commit -m "bump: 更新 yai-loguru-sinks 版本到 ${{ steps.version.outputs.version }}" || exit 0
+        git push
+        
+    - name: 创建 Release（手动触发时）
+      if: github.event_name == 'workflow_dispatch'
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref_name }}
-        release_name: Release ${{ github.ref_name }}
-        body: |
-          ## 🚀 yai-loguru-sinks ${{ github.ref_name }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        PRERELEASE_FLAG=""
+        if [[ "${{ github.event.inputs.test_pypi }}" == "true" ]]; then
+          PRERELEASE_FLAG="--prerelease"
+        fi
+        
+        cat > release-notes.md << EOF
+        ## yai-loguru-sinks v${{ steps.version.outputs.version }}
+        
+        ### 🚀 新功能
+        - 基于 sink 工厂的架构设计
+        - 支持多种 sink 类型（文件、控制台、JSON、自定义）
+        - 配置驱动的 sink 管理
+        - 协议解析器支持
+        
+        ### 📦 安装
+        
+        \`\`\`bash
+        pip install yai-loguru-sinks==${{ steps.version.outputs.version }}
+        \`\`\`
+        
+        ### 🔧 使用示例
+        
+        \`\`\`python
+        from yai_loguru_sinks import SinkFactory
+        from loguru import logger
+        
+        # 创建文件 sink
+        sink = SinkFactory.create_file_sink("app.log")
+        logger.add(sink)
+        logger.info("Hello, World!")
+        \`\`\`
+        
+        ### 📚 文档
+        
+        - [使用指南](https://github.com/yai-nexus/loguru-suite/tree/main/packages/yai-loguru-sinks)
+        - [示例代码](https://github.com/yai-nexus/loguru-suite/tree/main/examples)
+        
+        ### 🔗 相关链接
+        
+        - [PyPI 页面](https://pypi.org/project/yai-loguru-sinks/${{ steps.version.outputs.version }}/)
+        - [更新日志](https://github.com/yai-nexus/loguru-suite/releases)
+        EOF
+        
+        gh release create "v${{ steps.version.outputs.version }}" \
+          --title "yai-loguru-sinks v${{ steps.version.outputs.version }}" \
+          --notes-file release-notes.md \
+          $PRERELEASE_FLAG
           
-          ### 📦 安装
-          ```bash
-          pip install yai-loguru-sinks==${{ github.ref_name }}
-          ```
-          
-          ### 📋 更新内容
-          请查看 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) 了解详细更新内容。
-          
-          ### 🔗 相关链接
-          - [PyPI 页面](https://pypi.org/project/yai-loguru-sinks/${{ github.ref_name }}/)
-          - [文档](https://github.com/${{ github.repository }}/blob/main/README.md)
-          - [示例代码](https://github.com/${{ github.repository }}/tree/main/examples)
-        draft: false
-        prerelease: false
+    - name: 发布总结
+      run: |
+        echo "🎉 发布完成！"
+        echo "版本: ${{ steps.version.outputs.version }}"
+        echo "PyPI: https://pypi.org/project/yai-loguru-sinks/${{ steps.version.outputs.version }}/"
+        echo "Release: https://github.com/yai-nexus/loguru-suite/releases/tag/v${{ steps.version.outputs.version }}"

@@ -1,56 +1,73 @@
 # PyPI 发布指南
 
-本文档介绍如何将 `yai-loguru-sinks` 包发布到 PyPI。
+本文档详细说明如何将 `yai-loguru-sinks` 包发布到 PyPI。
 
-## 发布方式
+## 🚀 推荐方式：GitHub Release 自动发布
 
-### 1. GitHub Actions 自动发布（推荐）
+### 1. 配置 GitHub Secrets
 
-使用 GitHub Actions 工作流自动化发布流程，无需本地配置 PyPI 认证。
+在 GitHub 仓库设置中添加以下 Secrets：
 
-#### 配置 GitHub Secrets
+- `PYPI_API_TOKEN`: 正式 PyPI 的 API Token
+- `TEST_PYPI_API_TOKEN`: 测试 PyPI 的 API Token
 
-在 GitHub 仓库中配置以下 Secrets：
+### 2. 获取 PyPI API Token
 
-1. 访问 `Settings` > `Secrets and variables` > `Actions`
-2. 添加以下 Repository secrets：
-   - `PYPI_API_TOKEN`: PyPI API Token
-   - `TEST_PYPI_API_TOKEN`: TestPyPI API Token（可选）
+#### 正式 PyPI (pypi.org)
+1. 访问 https://pypi.org/account/login/
+2. 登录后进入 Account settings
+3. 点击 "Add API token"
+4. 选择 "Entire account" 或特定项目
+5. 复制生成的 token
 
-#### 获取 PyPI API Token
+#### 测试 PyPI (test.pypi.org)
+1. 访问 https://test.pypi.org/account/login/
+2. 重复上述步骤
 
-1. 访问 [PyPI Account Settings](https://pypi.org/manage/account/)
-2. 点击 "Add API token"
-3. 设置 Token 名称（如 `yai-loguru-sinks-github-actions`）
-4. 选择 Scope 为 "Entire account" 或特定项目
-5. 复制生成的 Token
+### 3. 发布方式
 
-#### 发布流程
+#### 方式一：使用 gh CLI 发布脚本（推荐）
 
-**方式一：推送标签触发**
 ```bash
-# 使用发布脚本（推荐）
-./scripts/publish.sh 0.2.1 --github
+# 发布到测试 PyPI（预发布版本）
+./scripts/publish.sh 0.2.1 --test
 
-# 或手动操作
-git tag v0.2.1
-git push origin v0.2.1
+# 发布到正式 PyPI
+./scripts/publish.sh 0.2.1
+
+# 发布预发布版本到正式 PyPI
+./scripts/publish.sh 0.2.1-beta.1 --prerelease
 ```
 
-**方式二：手动触发**
-1. 访问 GitHub Actions 页面
+**工作流程：**
+1. 脚本更新版本号并提交到 Git
+2. 使用 `gh release create` 创建 GitHub Release
+3. GitHub Release 自动触发 PyPI 发布工作流
+4. 根据 Release 类型自动选择发布目标：
+   - 预发布版本 → 测试 PyPI
+   - 正式版本 → 正式 PyPI
+
+#### 方式二：GitHub Actions 页面手动触发
+
+1. 访问 GitHub 仓库的 Actions 页面
 2. 选择 "发布到 PyPI" 工作流
 3. 点击 "Run workflow"
-4. 输入版本号和发布选项
+4. 输入版本号和选择发布目标
 
-#### 工作流功能
+### 4. 发布触发机制
 
-- ✅ 自动更新版本号
-- ✅ 构建和验证包
-- ✅ 发布到 TestPyPI 或正式 PyPI
-- ✅ 创建 GitHub Release
-- ✅ 多 Python 版本测试
-- ✅ 代码质量检查
+- **GitHub Release 发布时自动触发**：
+  - 正式 Release → 发布到正式 PyPI
+  - 预发布 Release → 发布到测试 PyPI
+- **手动触发**：可在 GitHub Actions 页面手动运行
+
+### 5. 工作流功能
+
+- ✅ 自动从 Release 标签获取版本号
+- ✅ 构建和检查包
+- ✅ 根据 Release 类型自动选择发布目标
+- ✅ 发布到 PyPI/TestPyPI
+- ✅ 完整的发布日志和状态反馈
 
 ### 2. 本地发布
 

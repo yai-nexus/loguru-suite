@@ -1,125 +1,164 @@
-# GitHub Actions 工作流
+# GitHub Actions 工作流说明
 
-本目录包含 `yai-loguru-sinks` 项目的 GitHub Actions 工作流配置。
+本目录包含项目的 GitHub Actions 工作流配置。
 
-## 工作流概览
+## 📋 工作流概览
 
 ### 1. CI 测试 (`ci.yml`)
 
 **触发条件：**
-- 推送到 `main` 或 `develop` 分支
-- 针对 `main` 分支的 Pull Request
+- `main` 和 `develop` 分支的 `push` 事件
+- `main` 分支的 `pull_request` 事件
 
 **功能：**
-- 多 Python 版本测试 (3.8-3.12)
-- 代码格式检查 (black, ruff)
-- 类型检查 (mypy)
-- 单元测试和覆盖率报告
-- 示例代码测试
-- 包构建验证
+- 🧪 多 Python 版本测试 (3.8-3.12)
+- 🔍 代码格式检查 (black, ruff)
+- 📝 类型检查 (mypy)
+- ✅ 单元测试 (pytest)
+- 📊 代码覆盖率报告 (codecov)
+- 🏗️ 包构建验证
+- 📦 示例代码测试
 
 ### 2. PyPI 发布 (`publish.yml`)
 
 **触发条件：**
-- 推送以 `v` 开头的标签 (如 `v0.2.1`)
-- 手动触发 (`workflow_dispatch`)
+- GitHub Release 发布时自动触发
+- 手动触发 (workflow_dispatch)
 
 **功能：**
-- 自动更新版本号
-- 构建和验证包
-- 发布到 TestPyPI 或正式 PyPI
-- 创建 GitHub Release
-- 支持测试模式
+- 🚀 自动从 Release 标签获取版本号
+- 📦 构建和检查包
+- 🎯 智能发布目标选择：
+  - 预发布 Release → 测试 PyPI
+  - 正式 Release → 正式 PyPI
+- 📝 完整的发布日志
 
-## 使用方法
+## 🚀 使用方法
 
-### 自动发布
+### 自动发布（推荐）
 
-1. **使用发布脚本（推荐）：**
-   ```bash
-   ./scripts/publish.sh 0.2.1 --github
-   ```
+使用 `gh CLI` 发布脚本：
 
-2. **手动推送标签：**
-   ```bash
-   git tag v0.2.1
-   git push origin v0.2.1
-   ```
+```bash
+# 发布到测试 PyPI（预发布版本）
+./scripts/publish.sh 0.2.1 --test
 
-### 手动触发发布
+# 发布到正式 PyPI
+./scripts/publish.sh 0.2.1
+
+# 发布预发布版本
+./scripts/publish.sh 0.2.1-beta.1 --prerelease
+```
+
+**工作流程：**
+1. 脚本更新版本号并提交
+2. 创建 GitHub Release
+3. Release 自动触发 PyPI 发布工作流
+4. 根据 Release 类型选择发布目标
+
+### 手动触发
 
 1. 访问 GitHub Actions 页面
 2. 选择 "发布到 PyPI" 工作流
 3. 点击 "Run workflow"
-4. 填写参数：
-   - `version`: 版本号 (如 `0.2.1`)
-   - `test_pypi`: 是否发布到测试 PyPI
+4. 输入版本号和选择发布目标
 
-## 配置要求
+## ⚙️ 配置要求
 
 ### GitHub Secrets
 
 在仓库设置中配置以下 Secrets：
 
-| Secret 名称 | 描述 | 必需 |
-|------------|------|------|
-| `PYPI_API_TOKEN` | PyPI API Token | ✅ |
-| `TEST_PYPI_API_TOKEN` | TestPyPI API Token | ❌ |
+| Secret 名称 | 用途 | 获取方式 |
+|------------|------|----------|
+| `PYPI_API_TOKEN` | 正式 PyPI 发布 | [PyPI Account Settings](https://pypi.org/manage/account/) |
+| `TEST_PYPI_API_TOKEN` | 测试 PyPI 发布 | [TestPyPI Account Settings](https://test.pypi.org/manage/account/) |
 
-### 获取 API Token
+### API Token 获取步骤
 
-1. 访问 [PyPI Account Settings](https://pypi.org/manage/account/)
+1. 访问 PyPI/TestPyPI 账户设置
 2. 点击 "Add API token"
-3. 设置名称：`yai-loguru-sinks-github-actions`
-4. 选择 Scope：`Entire account` 或项目特定
-5. 复制 Token 并添加到 GitHub Secrets
+3. 设置 Token 名称（如 `yai-loguru-sinks-github-actions`）
+4. 选择 Scope 为 "Entire account" 或特定项目
+5. 复制生成的 Token 并添加到 GitHub Secrets
 
-## 工作流状态
+## 📊 工作流状态
 
-### CI 状态徽章
-
-```markdown
-[![CI](https://github.com/yai-nexus/loguru-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/yai-nexus/loguru-suite/actions/workflows/ci.yml)
-```
-
-### 发布状态徽章
+可以在 README 中添加状态徽章：
 
 ```markdown
-[![PyPI](https://github.com/yai-nexus/loguru-suite/actions/workflows/publish.yml/badge.svg)](https://github.com/yai-nexus/loguru-suite/actions/workflows/publish.yml)
+![CI](https://github.com/yai-nexus/loguru-suite/workflows/CI/badge.svg)
+![PyPI Publish](https://github.com/yai-nexus/loguru-suite/workflows/发布到%20PyPI/badge.svg)
 ```
 
-## 故障排除
+## 🔧 故障排除
 
 ### 常见问题
 
-1. **发布失败：认证错误**
-   - 检查 `PYPI_API_TOKEN` 是否正确配置
-   - 确认 Token 权限范围
+1. **PyPI 发布失败**
+   - 检查 API Token 是否正确配置
+   - 确认版本号未重复
+   - 查看工作流日志获取详细错误信息
 
-2. **CI 失败：依赖安装**
-   - 检查 `pyproject.toml` 依赖配置
-   - 确认 Python 版本兼容性
+2. **测试失败**
+   - 检查代码格式是否符合 black/ruff 标准
+   - 确认类型注解是否正确
+   - 查看测试日志定位具体失败原因
 
-3. **版本冲突**
-   - 确保版本号唯一
-   - 检查是否已存在相同版本
+3. **包构建失败**
+   - 检查 `pyproject.toml` 配置
+   - 确认依赖版本兼容性
+   - 验证包结构是否正确
 
 ### 调试步骤
 
-1. 查看工作流日志
-2. 检查 Secrets 配置
-3. 验证权限设置
-4. 本地测试构建
+1. **查看工作流日志**
+   ```bash
+   # 使用 gh CLI 查看最近的工作流运行
+   gh run list
+   gh run view [run-id]
+   ```
 
-## 最佳实践
+2. **本地复现问题**
+   ```bash
+   # 运行 CI 检查
+   cd packages/yai-loguru-sinks
+   uv run black --check .
+   uv run ruff check .
+   uv run mypy .
+   uv run pytest
+   
+   # 构建包
+   uv build
+   uv run --with twine twine check dist/*
+   ```
 
-1. **发布前测试**：先发布到 TestPyPI
-2. **版本管理**：遵循语义化版本规范
-3. **代码质量**：确保 CI 通过后再发布
-4. **文档更新**：发布前更新相关文档
+3. **测试发布流程**
+   ```bash
+   # 测试发布到 TestPyPI
+   ./scripts/publish.sh 0.2.1-test --test
+   ```
 
-## 相关文档
+## 📚 最佳实践
+
+1. **版本管理**
+   - 使用语义化版本 (SemVer)
+   - 预发布版本使用 `-alpha`, `-beta`, `-rc` 后缀
+   - 先发布到 TestPyPI 验证
+
+2. **发布流程**
+   - 确保所有测试通过
+   - 更新文档和示例
+   - 创建详细的 Release Notes
+   - 验证发布后的包可正常安装使用
+
+3. **安全考虑**
+   - 定期轮换 API Token
+   - 使用最小权限原则
+   - 监控发布活动
+
+## 🔗 相关文档
 
 - [PyPI 发布指南](../docs/PYPI_PUBLISH.md)
 - [发布脚本说明](../scripts/publish.sh)
-- [项目文档](../README.md)
+- [GitHub Actions 官方文档](https://docs.github.com/en/actions)
