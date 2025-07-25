@@ -1,48 +1,72 @@
-# `@yai-nexus/loguru-support` 示例：集成云日志服务
+# Simple Usage - yai-loguru 基础使用示例
 
-本项目提供了一个清晰的示例，演示如何使用 `@yai-nexus/loguru-support` 将您的 Python 应用日志与云日志服务（如此示例中的阿里云 SLS）进行集成。
+这个示例演示了如何使用 `yai-loguru` 核心库进行基本的日志配置和输出。虽然初始化了插件管理器，但不加载任何插件，专注于展示核心功能。
 
-其核心设计思想是 **配置驱动** 和 **代码极简**，让您可以通过环境变量无缝对接到生产环境的日志基础设施。
+## 🎯 示例内容
 
-## 🌟 核心特性
+- **基本日志配置**: 控制台输出和文件输出
+- **日志级别**: DEBUG, INFO, WARNING, ERROR, CRITICAL
+- **结构化日志**: 使用 `bind()` 添加上下文信息
+- **异常处理**: 自动捕获异常堆栈
+- **文件轮转**: 按日期轮转和压缩
+- **多种格式**: 彩色控制台输出和 JSON 文件输出
 
-- **环境驱动配置**：零代码修改，通过环境变量即可完成生产环境的日志配置。
-- **生产就绪**：内置优雅停机（Graceful Shutdown）机制，确保在应用退出前所有缓冲的日志都能被成功发送。
-- **原生 Loguru API**：无需学习新的日志 API，继续使用您所熟悉的 `loguru` 即可。
-- **轻量化设计**：仅依赖于核心的 `loguru-support` 包，无需引入整个 `agentkit`。
-
-## 🚀 快速开始
-
-### 1. 安装依赖
+## 🚀 运行示例
 
 ```bash
-pip install "yai-loguru-support[sls]"
-# 该命令会同时安装 loguru-support 和阿里云 SLS 所需的依赖
-```
-
-### 2. 配置环境变量
-
-在运行前，请设置以下环境变量以配置阿里云 SLS 连接信息。
-
-| 变量名 | 必填 | 描述 | 示例 |
-|:---|:---:|:---|:---|
-| `SLS_ENDPOINT` | ✅ | SLS 服务端点 | `cn-hangzhou.log.aliyuncs.com` |
-| `SLS_AK_ID` | ✅ | 阿里云 Access Key ID | `LTAI5t...` |
-| `SLS_AK_KEY` | ✅ | 阿里云 Access Key Secret | `xxx...` |
-| `SLS_PROJECT` | ✅ | SLS 项目名称 | `my-log-project` |
-| `SLS_LOGSTORE` | ✅ | SLS 日志库名称 | `app-logs` |
-| `SLS_TOPIC` | ❌ | 日志主题 (默认为 `python-app`) | `my-service` |
-| `SLS_SOURCE` | ❌ | 日志来源 (默认为 `yai-loguru-support`) | `my-app-instance` |
-
-> **提示**: 您可以在阿里云**日志服务控制台**的项目概览页找到 `Endpoint`，在 **AccessKey 管理**页面创建和获取 Access Key。
-
-### 3. 运行示例
-
-```bash
+cd examples/simple-usage
 python main.py
 ```
 
-运行后，您应该能在阿里云 SLS 控制台的相应日志库中看到 "Hello SLS!" 这条日志。
+## 📁 输出文件
+
+运行后会在 `../../logs/` 目录下生成以下文件：
+
+- `simple-app_YYYY-MM-DD.log` - 标准格式的日志文件
+- `simple-app-json_YYYY-MM-DD.log` - JSON 格式的日志文件
+
+## 🔧 主要特性
+
+### 1. 彩色控制台输出
+```python
+logger.add(
+    sink=lambda msg: print(msg, end=""),
+    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | ...",
+    colorize=True
+)
+```
+
+### 2. 文件轮转和压缩
+```python
+logger.add(
+    sink="logs/app_{time:YYYY-MM-DD}.log",
+    rotation="00:00",      # 每天午夜轮转
+    retention="7 days",    # 保留7天
+    compression="zip"      # 压缩旧文件
+)
+```
+
+### 3. 结构化日志
+```python
+logger.bind(user_id="123", request_id="456").info("用户操作")
+```
+
+### 4. JSON 格式输出
+```python
+logger.add(
+    sink="logs/app-json.log",
+    serialize=True,  # JSON 格式
+    level="INFO"
+)
+```
+
+## 📚 学习要点
+
+1. **配置灵活性**: Loguru 提供了非常灵活的配置选项
+2. **性能优化**: 支持异步写入和批量处理
+3. **格式自定义**: 支持多种输出格式和自定义模板
+4. **上下文绑定**: 轻松添加结构化信息
+5. **异常处理**: 自动捕获和格式化异常信息
 
 ##  dissected 代码解析
 

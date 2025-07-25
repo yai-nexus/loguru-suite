@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "yai-nexus-agentkit-loguru-example"
-version = "0.2.6"
-description = "SLS (Simple Log Service) integration example using yai-loguru-support"
+name = "loguru-simple-usage-example"
+version = "0.1.0"
+description = "Simple Loguru usage example demonstrating basic logging features"
 authors = [
     { name="YAI-Nexus", email="contact@yai-nexus.com" },
 ]
@@ -23,20 +23,16 @@ classifiers = [
     "Topic :: System :: Logging",
 ]
 dependencies = [
-    "python-dotenv",
-    "yai-loguru-support[sls]",
+    "loguru>=0.7.0",
+    "yai-loguru",
 ]
 
 [project.urls]
-Homepage = "https://github.com/yai-nexus/yai-nexus-agentkit"
-Repository = "https://github.com/yai-nexus/yai-nexus-agentkit"
+Homepage = "https://github.com/yai-nexus/loguru-suite"
+Repository = "https://github.com/yai-nexus/loguru-suite"
 
 [project.optional-dependencies]
 dev = [
     "pytest",
-    "black",
-    "ruff",
+    "pytest-asyncio",
 ]
-
-[tool.hatch.build.targets.wheel]
-packages = ["."]
