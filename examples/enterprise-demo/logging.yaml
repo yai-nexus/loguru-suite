@@ -17,6 +17,6 @@ handlers:
     compression: "gz"
     
   # SLS 输出（需要配置环境变量）- 启用 PackId 功能
-  - sink: "sls://yai-log-test/app-log?region=cn-beijing&pack_id_enabled=true&pack_id_prefix=enterprise-demo"
+  - sink: "sls://yai-log-test/nexus-log?region=cn-beijing&pack_id_enabled=true&pack_id_prefix=enterprise-demo"
     level: "INFO"
     format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message} | {extra}"

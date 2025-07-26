@@ -15,7 +15,7 @@ basic-demo/
 ├── main.py                # 主程序文件
 ├── logging.yaml           # 日志配置文件
 ├── pyproject.toml         # 项目配置
-├── install_and_run.sh     # 安装和运行脚本
+├── sync_and_run.sh        # 安装和运行脚本
 ├── logs/                  # 日志输出目录
 └── README.md              # 说明文档
 ```
@@ -26,7 +26,7 @@ basic-demo/
 
 ```bash
 # 方式一：使用脚本运行（推荐）
-./install_and_run.sh
+./sync_and_run.sh
 
 # 方式二：直接运行 Python
 python3 main.py

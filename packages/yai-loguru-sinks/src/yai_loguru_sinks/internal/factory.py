@@ -41,9 +41,9 @@ def create_sls_sink(
     Returns:
         可调用的 sink 函数
     """
-    from ..config import resolve_sls_credentials
+    from .url_parser import resolve_sls_credentials
     
-    # 解析认证信息（统一在 config.py 中处理）
+    # 解析认证信息（统一在 url_parser.py 中处理）
     access_key_id, access_key_secret = resolve_sls_credentials(
         access_key_id, access_key_secret
     )

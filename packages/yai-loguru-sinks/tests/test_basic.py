@@ -13,7 +13,7 @@ class TestSlsSink:
     
     def test_create_sls_sink(self):
         """测试创建 SLS sink"""
-        from yai_loguru_sinks import create_sls_sink
+        from yai_loguru_sinks.internal.factory import create_sls_sink
         
         sink = create_sls_sink(
             project="test-project",
@@ -27,7 +27,7 @@ class TestSlsSink:
     
     def test_parse_sls_url(self):
         """测试 SLS URL 解析"""
-        from yai_loguru_sinks.config import parse_sls_url
+        from yai_loguru_sinks.internal.url_parser import parse_sls_url
         
         # 基本 URL
         config = parse_sls_url("sls://project/logstore?region=cn-hangzhou")
@@ -60,7 +60,7 @@ class TestConfigIntegration:
     })
     def test_sls_protocol_parser(self):
         """测试 SLS 协议解析器"""
-        from yai_loguru_sinks.config import sls_protocol_parser
+        from yai_loguru_sinks.internal.protocol_parsers import sls_protocol_parser
         
         # 测试基本解析
         sink = sls_protocol_parser("sls://project/logstore?region=cn-hangzhou")
@@ -72,7 +72,7 @@ class TestConfigIntegration:
     })
     def test_sls_protocol_parser_with_env(self):
         """测试带环境变量的 SLS 协议解析器"""
-        from yai_loguru_sinks.config import sls_protocol_parser
+        from yai_loguru_sinks.internal.protocol_parsers import sls_protocol_parser
         
         sink = sls_protocol_parser("sls://project/logstore?region=cn-hangzhou")
         assert callable(sink)
@@ -83,10 +83,9 @@ class TestPackageImports:
     
     def test_main_imports(self):
         """测试主要导入"""
-        from yai_loguru_sinks import register_protocol_parsers, create_sls_sink
+        from yai_loguru_sinks import register_protocol_parsers
         
         assert callable(register_protocol_parsers)
-        assert callable(create_sls_sink)
     
     def test_version_import(self):
         """测试版本导入"""
@@ -101,7 +100,7 @@ class TestErrorHandling:
     
     def test_invalid_sls_url(self):
         """测试无效的 SLS URL"""
-        from yai_loguru_sinks.config import parse_sls_url
+        from yai_loguru_sinks.internal.url_parser import parse_sls_url
         
         with pytest.raises(ValueError):
             parse_sls_url("invalid://url")
@@ -114,7 +113,7 @@ class TestErrorHandling:
     
     def test_missing_credentials(self):
         """测试缺失凭证"""
-        from yai_loguru_sinks import create_sls_sink
+        from yai_loguru_sinks.internal.factory import create_sls_sink
         
         # 不提供凭证应该抛出异常
         with pytest.raises((ValueError, TypeError)):

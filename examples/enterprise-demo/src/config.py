@@ -7,8 +7,7 @@ import os
 import re
 from pathlib import Path
 from loguru import logger
-from yai_loguru_sinks import register_protocol_parsers
-from loguru_config import LoguruConfig  # type: ignore
+from yai_loguru_sinks import register_protocol_parsers, create_config_from_file
 
 
 def load_environment():
@@ -31,8 +30,7 @@ def setup_logging():
     
     # 加载配置文件
     config_path = Path(__file__).parent.parent / "logging.yaml"
-    config = LoguruConfig()
-    config.load(config_path)
+    create_config_from_file(str(config_path))
     
     logger.info("日志系统初始化完成")
 

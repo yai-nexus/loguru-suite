@@ -38,8 +38,9 @@ def main():
     demo_structured_logging()
     demo_error_logging()
     
+    test_nonce = None
     if sls_available:
-        demo_sls_logging()
+        test_nonce = demo_sls_logging()
     
     logger.info("Enterprise Demo 运行完成")
     print("\n✅ 示例运行完成！")
@@ -48,8 +49,8 @@ def main():
         print("☁️ SLS 日志已发送到阿里云")
         print("🏷️ PackId 功能已启用 - 业务流程日志将自动分组")
         
-        # 自动检查 SLS 日志
-        check_success = check_sls_logs()
+        # 自动检查 SLS 日志，使用生成的 nonce 进行精确验证
+        check_success = check_sls_logs(test_nonce)
         if check_success:
             print("\n🎉 完整闭环测试成功！日志已成功写入并验证！")
         else:

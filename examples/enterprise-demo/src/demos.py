@@ -69,6 +69,11 @@ def demo_error_logging():
 
 def demo_sls_logging():
     """SLS 专用日志示例"""
+    import uuid
+    
+    # 生成唯一的 nonce 用于验证
+    nonce = str(uuid.uuid4())[:8]  # 使用前8位作为简短的nonce
+    
     logger.info("=== SLS 日志示例 ===")
     
     # 这些日志会同时输出到控制台、文件和 SLS
@@ -76,7 +81,8 @@ def demo_sls_logging():
         "environment": "production",
         "service": "enterprise-demo",
         "version": "1.0.0",
-        "deployment": "k8s-cluster-1"
+        "deployment": "k8s-cluster-1",
+        "test_nonce": nonce
     })
     
     # 安全审计日志
@@ -85,7 +91,8 @@ def demo_sls_logging():
         "user_id": "unknown",
         "ip_address": "192.168.1.200",
         "attempts": 3,
-        "severity": "medium"
+        "severity": "medium",
+        "test_nonce": nonce
     })
     
     # PackId 功能演示 - 模拟一个业务流程的多个步骤
@@ -93,26 +100,30 @@ def demo_sls_logging():
     logger.info("开始处理订单", extra={
         "business_flow": "order_processing",
         "step": "start",
-        "order_id": "order-12345"
+        "order_id": "order-12345",
+        "test_nonce": nonce
     })
     
     logger.info("验证用户信息", extra={
         "business_flow": "order_processing", 
         "step": "user_validation",
-        "user_id": "user-67890"
+        "user_id": "user-67890",
+        "test_nonce": nonce
     })
     
     logger.info("计算订单金额", extra={
         "business_flow": "order_processing",
         "step": "amount_calculation", 
         "amount": 299.99,
-        "currency": "CNY"
+        "currency": "CNY",
+        "test_nonce": nonce
     })
     
     logger.info("完成订单处理", extra={
         "business_flow": "order_processing",
         "step": "complete",
-        "status": "success"
+        "status": "success",
+        "test_nonce": nonce
     })
     
     # 添加一些特殊的测试日志，便于后续检查
@@ -120,11 +131,15 @@ def demo_sls_logging():
         "test_marker": "enterprise_demo_test",
         "timestamp": time.time(),
         "demo_type": "sls_integration_test",
-        "packid_test": "enabled"
+        "packid_test": "enabled",
+        "test_nonce": nonce
     })
+    
+    print(f"🔑 本次测试 nonce: {nonce}")
+    return nonce
 
 
-def check_sls_logs() -> bool:
+def check_sls_logs(expected_nonce: str | None = None) -> bool:
     """检查 SLS 日志写入情况"""
     from .validates import validate_sls_integration
-    return validate_sls_integration()
+    return validate_sls_integration(expected_nonce)

@@ -995,7 +995,7 @@ wheels = [
 
 [[package]]
 name = "yai-loguru-sinks"
-version = "0.5.1"
+version = "0.6.0"
 source = { editable = "packages/yai-loguru-sinks" }
 dependencies = [
     { name = "aliyun-log-python-sdk" },

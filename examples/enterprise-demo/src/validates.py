@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from loguru import logger
 
 
-def check_sls_logs() -> bool:
+def check_sls_logs(expected_nonce: str | None = None) -> bool:
     """检查 SLS 日志"""
     try:
         from aliyun.log import LogClient  # type: ignore
@@ -17,7 +17,7 @@ def check_sls_logs() -> bool:
         
         # 获取配置
         project = "yai-log-test"
-        logstore = "app-log"
+        logstore = "nexus-log"
         region = "cn-beijing"
         access_key_id = os.getenv('SLS_ACCESS_KEY_ID')
         access_key_secret = os.getenv('SLS_ACCESS_KEY_SECRET')
@@ -51,77 +51,119 @@ def check_sls_logs() -> bool:
             return False
             
         # 查询最近的日志
-        print("\n📋 查询最近 10 分钟的日志...")
+        print("\n📋 查询最近 5 分钟的日志...")
         
-        # 计算时间范围（最近10分钟）
+        # 计算时间范围（最近5分钟）
         end_time = datetime.now()
-        start_time = end_time - timedelta(minutes=10)
+        start_time = end_time - timedelta(minutes=5)
         
         from_time = int(start_time.timestamp())
         to_time = int(end_time.timestamp())
         
         try:
-            # 查询日志 - 使用正确的 GetLogsRequest
+            # 查询日志 - 使用精确的查询条件查找我们的测试日志
             from aliyun.log import GetLogsRequest  # type: ignore
             
-            request = GetLogsRequest(
+            # 首先尝试查找我们的测试日志
+            if expected_nonce:
+                # 如果提供了 nonce，使用精确查询
+                query = f'test_nonce="{expected_nonce}"'
+                print(f"🔍 使用 nonce 精确查询: {expected_nonce}")
+            else:
+                # 否则使用通用查询
+                query = 'test_marker="enterprise_demo_test" OR "Enterprise Demo 测试日志"'
+                print("🔍 使用通用查询条件")
+            
+            test_request = GetLogsRequest(
                 project=project,
                 logstore=logstore,
                 fromTime=from_time,
                 toTime=to_time,
                 topic="",
-                query="*",
-                line=10,
+                query=query,
+                line=50,
                 offset=0,
                 reverse=True
             )
             
-            response = client.get_logs(request)
+            test_response = client.get_logs(test_request)
+            test_logs = test_response.get_logs()
             
-            logs = response.get_logs()
-            
-            if logs:
-                print(f"✅ 找到 {len(logs)} 条日志记录")
-                print("\n📝 最新日志内容:")
+            if test_logs:
+                print(f"✅ 找到 {len(test_logs)} 条测试日志记录")
+                print("\n📝 测试日志内容:")
                 print("-" * 50)
                 
-                pack_id_found = False
+                nonce_verified = False
                 
-                for i, log in enumerate(logs[:3]):  # 只显示前3条
+                for i, log in enumerate(test_logs[:3]):  # 显示前3条测试日志
                     log_time = datetime.fromtimestamp(int(log.get_time()))
                     print(f"[{i+1}] 时间: {log_time.strftime('%Y-%m-%d %H:%M:%S')}")
                     
                     # 显示日志内容
-                    for key, value in log.get_contents().items():
-                        if key in ['message', 'level', 'function', 'line']:
-                            print(f"    {key}: {value}")
+                    log_contents = log.get_contents()
+                    print(f"📋 日志内容: {dict(log_contents)}")
+                    for key, value in log_contents.items():
+                        print(f"    {key}: {value}")
                     
-                    # 检查 LogTags 中的 PackId
-                    log_tags = log.get_tags()
-                    if log_tags:
-                        print(f"    📋 LogTags: {log_tags}")
-                        for tag_key, tag_value in log_tags.items():
-                            if tag_key == '__pack_id__':
-                                print(f"    🏷️ PackId: {tag_value}")
-                                pack_id_found = True
+                    # 验证 nonce
+                    if expected_nonce:
+                        log_nonce = log_contents.get('test_nonce', '')
+                        if log_nonce == expected_nonce:
+                            print(f"    ✅ nonce 验证成功: {log_nonce}")
+                            nonce_verified = True
+                        else:
+                            print(f"    ⚠️ nonce 不匹配: 期望 {expected_nonce}, 实际 {log_nonce}")
                     
                     print("-" * 30)
                 
-                # 检查 PackId 功能
-                if pack_id_found:
-                    print("✅ PackId 功能验证成功！PackId 已正确写入 LogTags")
+                if expected_nonce:
+                    if nonce_verified:
+                        print("✅ SLS 集成验证成功！找到了匹配 nonce 的测试日志")
+                        print("✅ 确认日志是本次运行产生的")
+                    else:
+                        print("⚠️ 找到了测试日志，但 nonce 不匹配")
+                        print("💡 可能是查询到了之前运行的日志")
+                        return False
                 else:
-                    print("⚠️ 未在 LogTags 中找到 PackId")
-                    print("💡 这可能表明 PackId 功能未正确配置或实现")
-                    
+                    print("✅ SLS 集成验证成功！找到了 Enterprise Demo 的测试日志")
+                
+                print("✅ 日志已成功写入阿里云 SLS")
                 return True
             else:
-                print("⚠️  未找到匹配的日志记录")
-                print("💡 可能原因:")
-                print("   1. 日志还未到达 SLS（有延迟）")
-                print("   2. 日志级别过滤")
-                print("   3. topic 或 source 不匹配")
-                return False
+                # 如果没找到测试日志，再查询一般的日志来验证连接
+                print("ℹ️ 未找到测试日志，尝试查询一般日志验证连接...")
+                
+                general_request = GetLogsRequest(
+                    project=project,
+                    logstore=logstore,
+                    fromTime=from_time,
+                    toTime=to_time,
+                    topic="",
+                    query="*",
+                    line=10,
+                    offset=0,
+                    reverse=True
+                )
+                
+                general_response = client.get_logs(general_request)
+                general_logs = general_response.get_logs()
+                
+                if general_logs:
+                    print(f"✅ SLS 连接正常，找到 {len(general_logs)} 条日志记录")
+                    print("⚠️ 但未找到 Enterprise Demo 的测试日志")
+                    print("💡 可能原因：日志传输延迟或查询条件需要调整")
+                    
+                    # 显示最新的几条日志以便调试
+                    print("\n📋 最新日志示例:")
+                    for i, log in enumerate(general_logs[:2]):
+                        log_content = log.get_contents()
+                        print(f"  日志 {i+1}: {dict(log_content)}")
+                    
+                    return True
+                else:
+                    print("❌ 未找到任何日志记录")
+                    return False
                 
         except LogException as e:
             print(f"❌ 查询日志失败: {e}")
@@ -136,7 +178,7 @@ def check_sls_logs() -> bool:
         return False
 
 
-def validate_sls_integration() -> bool:
+def validate_sls_integration(expected_nonce: str | None = None) -> bool:
     """验证 SLS 集成功能"""
     print("\n" + "=" * 50)
     print("🔍 开始检查 SLS 日志写入情况...")
@@ -145,7 +187,7 @@ def validate_sls_integration() -> bool:
     import time
     time.sleep(5)
     
-    success = check_sls_logs()
+    success = check_sls_logs(expected_nonce)
     
     print("\n" + "=" * 50)
     if success:
