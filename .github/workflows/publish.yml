@@ -59,19 +59,19 @@ jobs:
     - name: 构建包
       run: |
         cd packages/yai-loguru-sinks
-        uv build
+        uv build --out-dir dist
         
     - name: 检查包
       run: |
         cd packages/yai-loguru-sinks
-        uv run --with twine twine check ../../dist/*
+        uv run --with twine twine check dist/*
         
     - name: 显示包信息
       run: |
         cd packages/yai-loguru-sinks
-        ls -la ../../dist/
+        ls -la dist/
         echo "=== 包内容 ==="
-        uv run --with twine twine check ../../dist/* --strict
+        uv run --with twine twine check dist/* --strict
         
     - name: 发布到测试 PyPI
       if: |
@@ -82,7 +82,7 @@ jobs:
       run: |
         cd packages/yai-loguru-sinks
         echo "发布到测试 PyPI..."
-        uv publish --repository testpypi ../../dist/*
+        uv publish --repository testpypi dist/*
         
     - name: 发布到正式 PyPI
       if: |
@@ -93,7 +93,7 @@ jobs:
       run: |
         cd packages/yai-loguru-sinks
         echo "发布到正式 PyPI..."
-        uv publish ../../dist/*
+        uv publish dist/*
         
     - name: 提交版本更新
       if: github.event_name == 'workflow_dispatch'
