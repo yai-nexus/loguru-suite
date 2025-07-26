@@ -1,0 +1,22 @@
+# Enterprise Demo 日志配置
+# 基于 loguru-config 的配置格式
+
+handlers:
+  # 控制台输出
+  - sink: "sys.stdout"
+    level: "INFO"
+    format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"
+    colorize: true
+    
+  # 文件输出
+  - sink: "logs/enterprise-demo.log"
+    level: "DEBUG"
+    format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message} | {extra}"
+    rotation: "10 MB"
+    retention: "7 days"
+    compression: "gz"
+    
+  # SLS 输出（需要配置环境变量）
+  - sink: "sls://${SLS_PROJECT}/${SLS_LOGSTORE}?region=${SLS_REGION}&access_key_id=${SLS_ACCESS_KEY_ID}&access_key_secret=${SLS_ACCESS_KEY_SECRET}"
+    level: "WARNING"
+    format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message} | {extra}"

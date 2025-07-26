@@ -1,7 +1,8 @@
 [tool.uv.workspace]
 members = [
     "packages/yai-loguru-sinks",
-    "examples",
+    "examples/basic-demo",
+    "examples/enterprise-demo",
 ]
 
 [tool.uv]

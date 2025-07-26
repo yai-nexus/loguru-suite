@@ -5,7 +5,7 @@
 
 import re
 from typing import Any, Dict, Callable
-from .sls import parse_sls_url, create_sls_sink
+from urllib.parse import urlparse, parse_qs
 
 # 检查 loguru-config 是否可用
 try:
@@ -13,6 +13,90 @@ try:
     HAS_LOGURU_CONFIG = True
 except ImportError:
     HAS_LOGURU_CONFIG = False
+
+
+def parse_sls_url(url: str) -> Dict[str, Any]:
+    """解析 SLS URL 格式
+    
+    支持的 URL 格式：
+        sls://project/logstore?region=xxx&access_key_id=xxx&access_key_secret=xxx
+    
+    完整示例：
+        sls://yai-log-test/app-log?region=cn-beijing&topic=python-app&batch_size=100&flush_interval=5.0&compress=true
+        sls://my-project/error-log?region=cn-hangzhou&access_key_id=LTAI5xxx&access_key_secret=xxx&source=web-server
+    
+    必需参数：
+        - project: 阿里云 SLS 项目名
+        - logstore: 日志库名
+        - region: 地域，如 cn-beijing, cn-hangzhou, cn-shanghai
+    
+    可选参数：
+        - access_key_id: 访问密钥 ID（可通过环境变量 SLS_ACCESS_KEY_ID 设置）
+        - access_key_secret: 访问密钥（可通过环境变量 SLS_ACCESS_KEY_SECRET 设置）
+        - topic: 日志主题，默认 "python-app"
+        - source: 日志来源，默认 "yai-loguru"
+        - batch_size: 批量发送大小，默认 100
+        - flush_interval: 刷新间隔（秒），默认 5.0
+        - compress: 是否压缩，默认 true
+    
+    Args:
+        url: SLS URL 字符串
+        
+    Returns:
+        解析后的配置字典
+        
+    Raises:
+        ValueError: URL 格式无效或缺少必需参数
+    """
+    parsed = urlparse(url)
+    
+    if parsed.scheme != 'sls':
+        raise ValueError(f"无效的 SLS URL scheme: {parsed.scheme}")
+    
+    # 解析路径，project 在 netloc 中，logstore 在 path 中
+    project = parsed.netloc
+    logstore = parsed.path.strip('/')
+    
+    if not project:
+        raise ValueError(f"无效的 SLS URL: 缺少项目名")
+    
+    if not logstore:
+        raise ValueError(f"无效的 SLS URL: 缺少日志库名")
+    
+    # 解析查询参数
+    query_params = parse_qs(parsed.query)
+    
+    # 提取必需参数
+    region = query_params.get('region', [None])[0]
+    if not region:
+        raise ValueError("SLS URL 缺少 region 参数")
+    
+    config: Dict[str, Any] = {
+        'project': project,
+        'logstore': logstore,
+        'region': region,
+    }
+    
+    # 提取可选参数
+    optional_params = [
+        'access_key_id', 'access_key_secret', 'topic', 'source',
+        'batch_size', 'flush_interval', 'compress'
+    ]
+    
+    for param in optional_params:
+        if param in query_params:
+            raw_value = query_params[param][0]
+            # 类型转换
+            if param in ['batch_size']:
+                config[param] = int(raw_value)
+            elif param in ['flush_interval']:
+                config[param] = float(raw_value)
+            elif param in ['compress']:
+                config[param] = raw_value.lower() in ('true', '1', 'yes')
+            else:
+                config[param] = raw_value
+    
+    return config
 
 
 def sls_protocol_parser(url: str) -> Any:
@@ -26,6 +110,7 @@ def sls_protocol_parser(url: str) -> Any:
     Returns:
         配置好的 SLS sink 函数
     """
+    from .sls import create_sls_sink  # 延迟导入避免循环依赖
     config = parse_sls_url(url)
     return create_sls_sink(**config)
 
@@ -75,8 +160,8 @@ PROTOCOL_PARSERS = [
 ]
 
 
-def setup_extended_config() -> None:
-    """设置扩展的 loguru-config 协议解析器
+def register_protocol_parsers() -> None:
+    """注册协议解析器到 loguru-config
     
     注册企业级 sink 协议解析器到 loguru-config。
     调用此函数后，可以在配置文件中使用 sls://、cloudwatch:// 等协议。

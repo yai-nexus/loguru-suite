@@ -1,0 +1,29 @@
+2025-07-26 12:26:56 | INFO     | __main__:setup_logging:27 - 日志系统初始化完成
+2025-07-26 12:26:56 | WARNING  | __main__:check_sls_config:45 - 缺少 SLS 环境变量: SLS_PROJECT, SLS_LOGSTORE, SLS_REGION, SLS_ACCESS_KEY_ID, SLS_ACCESS_KEY_SECRET
+2025-07-26 12:26:56 | INFO     | __main__:check_sls_config:46 - 请参考 .env.example 文件配置 SLS 环境变量
+2025-07-26 12:26:56 | INFO     | __main__:main:141 - SLS 功能未启用，仅使用本地日志
+2025-07-26 12:26:56 | INFO     | __main__:demo_basic_logging:54 - === 基础日志示例 ===
+2025-07-26 12:26:56 | INFO     | __main__:demo_basic_logging:57 - 这是普通信息
+2025-07-26 12:26:56 | WARNING  | __main__:demo_basic_logging:58 - 这是警告信息
+2025-07-26 12:26:56 | ERROR    | __main__:demo_basic_logging:59 - 这是错误信息
+2025-07-26 12:26:56 | INFO     | __main__:demo_structured_logging:63 - === 结构化日志示例 ===
+2025-07-26 12:26:56 | INFO     | __main__:demo_structured_logging:66 - 用户登录
+2025-07-26 12:26:56 | INFO     | __main__:demo_structured_logging:76 - API 调用
+2025-07-26 12:26:56 | INFO     | __main__:demo_structured_logging:85 - 业务指标
+2025-07-26 12:26:56 | INFO     | __main__:demo_error_logging:95 - === 错误日志示例 ===
+2025-07-26 12:26:56 | ERROR    | __main__:demo_error_logging:101 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m158[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x107c3c9a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m146[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x107c3c860>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m99[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 12:26:56 | INFO     | __main__:main:151 - Enterprise Demo 运行完成

@@ -9,8 +9,12 @@
 			"path": "./packages/yai-loguru-sinks"
 		},
 		{
-			"name": "Examples",
-			"path": "./examples"
+			"name": "Basic Demo",
+			"path": "./examples/basic-demo"
+		},
+		{
+			"name": "Enterprise Demo",
+			"path": "./examples/enterprise-demo"
 		}
 	],
 	"settings": {

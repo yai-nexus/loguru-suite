@@ -11,7 +11,6 @@ import threading
 from typing import Dict, Any, Optional, List, Callable
 from dataclasses import dataclass
 from queue import Queue, Empty
-from urllib.parse import urlparse, parse_qs
 
 try:
     from aliyun.log import LogClient  # type: ignore
@@ -244,63 +243,3 @@ def create_sls_sink(
     )
     
     return SlsSink(config)
-
-
-def parse_sls_url(url: str) -> Dict[str, Any]:
-    """解析 SLS URL 格式: sls://project/logstore?region=xxx&access_key_id=xxx&access_key_secret=xxx
-    
-    Args:
-        url: SLS URL
-        
-    Returns:
-        解析后的配置字典
-    """
-    parsed = urlparse(url)
-    
-    if parsed.scheme != 'sls':
-        raise ValueError(f"无效的 SLS URL scheme: {parsed.scheme}")
-    
-    # 解析路径，project 在 netloc 中，logstore 在 path 中
-    project = parsed.netloc
-    logstore = parsed.path.strip('/')
-    
-    if not project:
-        raise ValueError(f"无效的 SLS URL: 缺少项目名")
-    
-    if not logstore:
-        raise ValueError(f"无效的 SLS URL: 缺少日志库名")
-    
-    # 解析查询参数
-    query_params = parse_qs(parsed.query)
-    
-    # 提取必需参数
-    region = query_params.get('region', [None])[0]
-    if not region:
-        raise ValueError("SLS URL 缺少 region 参数")
-    
-    config: Dict[str, Any] = {
-        'project': project,
-        'logstore': logstore,
-        'region': region,
-    }
-    
-    # 提取可选参数
-    optional_params = [
-        'access_key_id', 'access_key_secret', 'topic', 'source',
-        'batch_size', 'flush_interval', 'compress'
-    ]
-    
-    for param in optional_params:
-        if param in query_params:
-            raw_value = query_params[param][0]
-            # 类型转换
-            if param in ['batch_size']:
-                config[param] = int(raw_value)
-            elif param in ['flush_interval']:
-                config[param] = float(raw_value)
-            elif param in ['compress']:
-                config[param] = raw_value.lower() in ('true', '1', 'yes')
-            else:
-                config[param] = raw_value
-    
-    return config

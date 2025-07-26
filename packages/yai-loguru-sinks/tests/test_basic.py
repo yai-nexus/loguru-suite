@@ -27,7 +27,7 @@ class TestSlsSink:
     
     def test_parse_sls_url(self):
         """测试 SLS URL 解析"""
-        from yai_loguru_sinks.sls import parse_sls_url
+        from yai_loguru_sinks.config import parse_sls_url
         
         # 基本 URL
         config = parse_sls_url("sls://project/logstore?region=cn-hangzhou")
@@ -47,12 +47,12 @@ class TestSlsSink:
 class TestConfigIntegration:
     """测试配置集成功能"""
     
-    def test_setup_extended_config(self):
-        """测试设置扩展配置"""
-        from yai_loguru_sinks import setup_extended_config
+    def test_register_protocol_parsers(self):
+        """测试注册协议解析器"""
+        from yai_loguru_sinks import register_protocol_parsers
         
         # 应该不抛出异常
-        setup_extended_config()
+        register_protocol_parsers()
     
     @patch.dict(os.environ, {
         'SLS_ACCESS_KEY_ID': 'test-key',
@@ -83,9 +83,9 @@ class TestPackageImports:
     
     def test_main_imports(self):
         """测试主要导入"""
-        from yai_loguru_sinks import setup_extended_config, create_sls_sink
+        from yai_loguru_sinks import register_protocol_parsers, create_sls_sink
         
-        assert callable(setup_extended_config)
+        assert callable(register_protocol_parsers)
         assert callable(create_sls_sink)
     
     def test_version_import(self):
@@ -101,7 +101,7 @@ class TestErrorHandling:
     
     def test_invalid_sls_url(self):
         """测试无效的 SLS URL"""
-        from yai_loguru_sinks.sls import parse_sls_url
+        from yai_loguru_sinks.config import parse_sls_url
         
         with pytest.raises(ValueError):
             parse_sls_url("invalid://url")

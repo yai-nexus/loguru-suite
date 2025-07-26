@@ -71,12 +71,12 @@ def test_sls_connection():
 def test_with_yai_loguru_sinks():
     """使用 yai-loguru-sinks 测试"""
     try:
-        from yai_loguru_sinks import setup_extended_config, create_config_from_file
+        from yai_loguru_sinks import register_protocol_parsers, create_config_from_file
         
         print("\n🚀 使用 yai-loguru-sinks 发送测试日志...")
         
         # 设置扩展配置
-        setup_extended_config()
+        register_protocol_parsers()
         
         # 加载配置文件
         config = create_config_from_file('configs/logging.yaml')
