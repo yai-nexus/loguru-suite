@@ -128,14 +128,13 @@ EOF
 # 使用 gh CLI 创建 Release
 echo -e "${BLUE}创建 GitHub Release...${NC}"
 if [[ "$TEST_MODE" == "true" ]]; then
-    # 测试模式：创建草稿 Release
+    # 测试模式：直接发布 Release（标记为测试版本）
     gh release create "v$VERSION" \
         --title "yai-loguru-sinks v$VERSION (Test)" \
         --notes-file "$RELEASE_NOTES_FILE" \
-        --draft \
         $PRERELEASE
-    echo -e "${YELLOW}测试 Release 已创建为草稿${NC}"
-    echo "请访问 GitHub 查看并手动发布"
+    echo -e "${GREEN}测试 Release 已发布！${NC}"
+    echo "这将自动触发 TestPyPI 发布工作流"
 else
     # 正式模式：直接发布 Release
     gh release create "v$VERSION" \
@@ -155,8 +154,9 @@ echo "Release: https://github.com/yai-nexus/loguru-suite/releases/tag/v$VERSION"
 
 if [[ "$TEST_MODE" == "true" ]]; then
     echo -e "${YELLOW}测试模式信息:${NC}"
-    echo "- Release 已创建为草稿，需要手动发布"
-    echo "- 发布后将触发 TestPyPI 发布"
+    echo "- GitHub Release 已自动发布"
+    echo "- TestPyPI 发布工作流已自动触发"
+    echo "- 查看进度: https://github.com/yai-nexus/loguru-suite/actions"
     echo "- 测试安装: pip install --index-url https://test.pypi.org/simple/ yai-loguru-sinks==$VERSION"
 else
     echo -e "${BLUE}自动化信息:${NC}"
