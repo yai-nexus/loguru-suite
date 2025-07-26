@@ -29,6 +29,7 @@ def main():
     sls_available = check_sls_config()
     if sls_available:
         logger.info("SLS 功能已启用")
+        logger.info("PackId 功能已启用 - 相关日志将自动分组")
     else:
         logger.info("SLS 功能未启用，仅使用本地日志")
     
@@ -45,6 +46,7 @@ def main():
     print("📁 本地日志文件：logs/enterprise-demo.log")
     if sls_available:
         print("☁️ SLS 日志已发送到阿里云")
+        print("🏷️ PackId 功能已启用 - 业务流程日志将自动分组")
         
         # 自动检查 SLS 日志
         check_success = check_sls_logs()

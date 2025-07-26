@@ -88,11 +88,39 @@ def demo_sls_logging():
         "severity": "medium"
     })
     
+    # PackId 功能演示 - 模拟一个业务流程的多个步骤
+    logger.info("=== PackId 功能演示 ===")
+    logger.info("开始处理订单", extra={
+        "business_flow": "order_processing",
+        "step": "start",
+        "order_id": "order-12345"
+    })
+    
+    logger.info("验证用户信息", extra={
+        "business_flow": "order_processing", 
+        "step": "user_validation",
+        "user_id": "user-67890"
+    })
+    
+    logger.info("计算订单金额", extra={
+        "business_flow": "order_processing",
+        "step": "amount_calculation", 
+        "amount": 299.99,
+        "currency": "CNY"
+    })
+    
+    logger.info("完成订单处理", extra={
+        "business_flow": "order_processing",
+        "step": "complete",
+        "status": "success"
+    })
+    
     # 添加一些特殊的测试日志，便于后续检查
     logger.info("Enterprise Demo 测试日志", extra={
         "test_marker": "enterprise_demo_test",
         "timestamp": time.time(),
-        "demo_type": "sls_integration_test"
+        "demo_type": "sls_integration_test",
+        "packid_test": "enabled"
     })
 
 

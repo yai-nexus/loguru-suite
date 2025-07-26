@@ -144,7 +144,7 @@ def sls_protocol_parser(url: str) -> Any:
     Returns:
         配置好的 SLS sink 函数
     """
-    from .sls import create_sls_sink  # 延迟导入避免循环依赖
+    from .internal.factory import create_sls_sink  # 延迟导入避免循环依赖
     config = parse_sls_url(url)
     
     # 解析认证信息

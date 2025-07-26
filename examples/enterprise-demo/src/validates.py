@@ -85,6 +85,8 @@ def check_sls_logs() -> bool:
                 print("\n📝 最新日志内容:")
                 print("-" * 50)
                 
+                pack_id_found = False
+                
                 for i, log in enumerate(logs[:3]):  # 只显示前3条
                     log_time = datetime.fromtimestamp(int(log.get_time()))
                     print(f"[{i+1}] 时间: {log_time.strftime('%Y-%m-%d %H:%M:%S')}")
@@ -93,7 +95,24 @@ def check_sls_logs() -> bool:
                     for key, value in log.get_contents().items():
                         if key in ['message', 'level', 'function', 'line']:
                             print(f"    {key}: {value}")
+                    
+                    # 检查 LogTags 中的 PackId
+                    log_tags = log.get_tags()
+                    if log_tags:
+                        print(f"    📋 LogTags: {log_tags}")
+                        for tag_key, tag_value in log_tags.items():
+                            if tag_key == '__pack_id__':
+                                print(f"    🏷️ PackId: {tag_value}")
+                                pack_id_found = True
+                    
                     print("-" * 30)
+                
+                # 检查 PackId 功能
+                if pack_id_found:
+                    print("✅ PackId 功能验证成功！PackId 已正确写入 LogTags")
+                else:
+                    print("⚠️ 未在 LogTags 中找到 PackId")
+                    print("💡 这可能表明 PackId 功能未正确配置或实现")
                     
                 return True
             else:

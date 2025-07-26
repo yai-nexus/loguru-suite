@@ -7,7 +7,7 @@ import os
 import re
 from pathlib import Path
 from loguru import logger
-import yai_loguru_sinks
+from yai_loguru_sinks import register_protocol_parsers
 from loguru_config import LoguruConfig  # type: ignore
 
 
@@ -27,7 +27,7 @@ def setup_logging():
     logger.remove()
     
     # 注册协议解析器
-    yai_loguru_sinks.register_protocol_parsers()
+    register_protocol_parsers()
     
     # 加载配置文件
     config_path = Path(__file__).parent.parent / "logging.yaml"

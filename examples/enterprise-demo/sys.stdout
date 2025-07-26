@@ -621,3 +621,117 @@
 2025-07-26 14:29:09 | WARNING  | src.demos:demo_sls_logging:83 - 安全事件
 2025-07-26 14:29:09 | INFO     | src.demos:demo_sls_logging:92 - Enterprise Demo 测试日志
 2025-07-26 14:29:09 | INFO     | __main__:main:43 - Enterprise Demo 运行完成
+2025-07-26 15:05:39 | INFO     | src.config:setup_logging:37 - 日志系统初始化完成
+2025-07-26 15:05:39 | INFO     | src.config:check_sls_config:47 - SLS 配置检查通过
+2025-07-26 15:05:39 | INFO     | __main__:main:31 - SLS 功能已启用
+2025-07-26 15:05:39 | INFO     | __main__:main:32 - PackId 功能已启用 - 相关日志将自动分组
+2025-07-26 15:05:39 | INFO     | src.demos:demo_basic_logging:14 - === 基础日志示例 ===
+2025-07-26 15:05:39 | INFO     | src.demos:demo_basic_logging:17 - 这是普通信息
+2025-07-26 15:05:39 | WARNING  | src.demos:demo_basic_logging:18 - 这是警告信息
+2025-07-26 15:05:39 | ERROR    | src.demos:demo_basic_logging:19 - 这是错误信息
+2025-07-26 15:05:39 | INFO     | src.demos:demo_structured_logging:24 - === 结构化日志示例 ===
+2025-07-26 15:05:39 | INFO     | src.demos:demo_structured_logging:27 - 用户登录
+2025-07-26 15:05:39 | INFO     | src.demos:demo_structured_logging:37 - API 调用
+2025-07-26 15:05:39 | INFO     | src.demos:demo_structured_logging:46 - 业务指标
+2025-07-26 15:05:39 | INFO     | src.demos:demo_error_logging:57 - === 错误日志示例 ===
+2025-07-26 15:05:39 | ERROR    | src.demos:demo_error_logging:63 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m60[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x100606020>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m39[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x10273ea20>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/src/[0m[32m[1mdemos.py[0m", line [33m61[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:72 - === SLS 日志示例 ===
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:75 - 企业级日志记录
+2025-07-26 15:05:39 | WARNING  | src.demos:demo_sls_logging:83 - 安全事件
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:92 - === PackId 功能演示 ===
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:93 - 开始处理订单
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:99 - 验证用户信息
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:105 - 计算订单金额
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:112 - 完成订单处理
+2025-07-26 15:05:39 | INFO     | src.demos:demo_sls_logging:119 - Enterprise Demo 测试日志
+2025-07-26 15:05:39 | INFO     | __main__:main:44 - Enterprise Demo 运行完成
+2025-07-26 15:12:57 | INFO     | src.config:setup_logging:37 - 日志系统初始化完成
+2025-07-26 15:12:57 | INFO     | src.config:check_sls_config:47 - SLS 配置检查通过
+2025-07-26 15:12:57 | INFO     | __main__:main:31 - SLS 功能已启用
+2025-07-26 15:12:57 | INFO     | __main__:main:32 - PackId 功能已启用 - 相关日志将自动分组
+2025-07-26 15:12:57 | INFO     | src.demos:demo_basic_logging:14 - === 基础日志示例 ===
+2025-07-26 15:12:57 | INFO     | src.demos:demo_basic_logging:17 - 这是普通信息
+2025-07-26 15:12:57 | WARNING  | src.demos:demo_basic_logging:18 - 这是警告信息
+2025-07-26 15:12:57 | ERROR    | src.demos:demo_basic_logging:19 - 这是错误信息
+2025-07-26 15:12:57 | INFO     | src.demos:demo_structured_logging:24 - === 结构化日志示例 ===
+2025-07-26 15:12:57 | INFO     | src.demos:demo_structured_logging:27 - 用户登录
+2025-07-26 15:12:57 | INFO     | src.demos:demo_structured_logging:37 - API 调用
+2025-07-26 15:12:57 | INFO     | src.demos:demo_structured_logging:46 - 业务指标
+2025-07-26 15:12:57 | INFO     | src.demos:demo_error_logging:57 - === 错误日志示例 ===
+2025-07-26 15:12:57 | ERROR    | src.demos:demo_error_logging:63 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m60[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x100692020>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m39[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x105c3aa20>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/src/[0m[32m[1mdemos.py[0m", line [33m61[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:72 - === SLS 日志示例 ===
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:75 - 企业级日志记录
+2025-07-26 15:12:57 | WARNING  | src.demos:demo_sls_logging:83 - 安全事件
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:92 - === PackId 功能演示 ===
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:93 - 开始处理订单
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:99 - 验证用户信息
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:105 - 计算订单金额
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:112 - 完成订单处理
+2025-07-26 15:12:57 | INFO     | src.demos:demo_sls_logging:119 - Enterprise Demo 测试日志
+2025-07-26 15:12:57 | INFO     | __main__:main:44 - Enterprise Demo 运行完成
+2025-07-26 15:24:35 | INFO     | src.config:setup_logging:37 - 日志系统初始化完成
+2025-07-26 15:24:35 | INFO     | src.config:check_sls_config:47 - SLS 配置检查通过
+2025-07-26 15:24:35 | INFO     | __main__:main:31 - SLS 功能已启用
+2025-07-26 15:24:35 | INFO     | __main__:main:32 - PackId 功能已启用 - 相关日志将自动分组
+2025-07-26 15:24:35 | INFO     | src.demos:demo_basic_logging:14 - === 基础日志示例 ===
+2025-07-26 15:24:35 | INFO     | src.demos:demo_basic_logging:17 - 这是普通信息
+2025-07-26 15:24:35 | WARNING  | src.demos:demo_basic_logging:18 - 这是警告信息
+2025-07-26 15:24:35 | ERROR    | src.demos:demo_basic_logging:19 - 这是错误信息
+2025-07-26 15:24:35 | INFO     | src.demos:demo_structured_logging:24 - === 结构化日志示例 ===
+2025-07-26 15:24:35 | INFO     | src.demos:demo_structured_logging:27 - 用户登录
+2025-07-26 15:24:35 | INFO     | src.demos:demo_structured_logging:37 - API 调用
+2025-07-26 15:24:35 | INFO     | src.demos:demo_structured_logging:46 - 业务指标
+2025-07-26 15:24:35 | INFO     | src.demos:demo_error_logging:57 - === 错误日志示例 ===
+2025-07-26 15:24:35 | ERROR    | src.demos:demo_error_logging:63 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m60[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1011ee020>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m39[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x10603a980>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/src/[0m[32m[1mdemos.py[0m", line [33m61[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:72 - === SLS 日志示例 ===
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:75 - 企业级日志记录
+2025-07-26 15:24:35 | WARNING  | src.demos:demo_sls_logging:83 - 安全事件
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:92 - === PackId 功能演示 ===
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:93 - 开始处理订单
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:99 - 验证用户信息
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:105 - 计算订单金额
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:112 - 完成订单处理
+2025-07-26 15:24:35 | INFO     | src.demos:demo_sls_logging:119 - Enterprise Demo 测试日志
+2025-07-26 15:24:35 | INFO     | __main__:main:44 - Enterprise Demo 运行完成
