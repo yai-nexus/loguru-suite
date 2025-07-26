@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yai-loguru-sinks"
-version = "0.2.2-test"
+version = "0.2.2.dev1"
 description = "企业级 Loguru Sink 工厂，基于 loguru-config 的简洁架构，专注于阿里云 SLS 支持"
 readme = "README.md"
 license = { text = "MIT" }
@@ -61,7 +61,7 @@ profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "0.2.2-test"
+python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
