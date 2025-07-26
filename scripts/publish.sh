@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # yai-loguru-sinks 发布脚本
-# 用法: ./scripts/publish.sh [version] [--test] [--prerelease]
+# 用法: ./scripts/publish.sh [package_name] <version> [--test] [--prerelease]
 
 set -e
 
@@ -20,9 +20,16 @@ echo -e "${BLUE}yai-loguru-sinks 发布脚本${NC}"
 echo "=================================="
 
 # 检查参数
-VERSION=$1
+PACKAGE_NAME=$1
+VERSION=$2
 TEST_MODE=""
 PRERELEASE=""
+
+# 如果只提供了一个参数，假设是版本号（向后兼容）
+if [[ -z "$VERSION" && -n "$PACKAGE_NAME" ]]; then
+    VERSION="$PACKAGE_NAME"
+    PACKAGE_NAME="yai-loguru-sinks"
+fi
 
 for arg in "$@"; do
     case $arg in
@@ -45,13 +52,15 @@ fi
 
 if [[ -z "$VERSION" ]]; then
     echo -e "${RED}错误：请提供版本号${NC}"
-    echo "用法: $0 <version> [--test] [--prerelease]"
+    echo "用法: $0 [package_name] <version> [--test] [--prerelease]"
     echo "示例: $0 0.2.1"
-    echo "示例: $0 0.2.1 --test"
-    echo "示例: $0 0.3.0-beta.1 --prerelease"
+    echo "示例: $0 yai-loguru-sinks 0.2.1"
+    echo "示例: $0 yai-loguru-sinks 0.2.1 --test"
+    echo "示例: $0 yai-loguru-sinks 0.3.0-beta.1 --prerelease"
     exit 1
 fi
 
+echo "包名: $PACKAGE_NAME"
 echo "目标版本: $VERSION"
 echo "包目录: $PACKAGE_DIR"
 
@@ -85,7 +94,7 @@ sed -i '' "s/version = \".*\"/version = \"$VERSION\"/" pyproject.toml
 # 提交版本更新
 cd "$PROJECT_ROOT"
 git add "$PACKAGE_DIR/pyproject.toml"
-git commit -m "bump: 更新 yai-loguru-sinks 版本到 $VERSION"
+git commit -m "bump: 更新 $PACKAGE_NAME 版本到 $VERSION"
 
 # 推送到远程
 echo -e "${BLUE}推送到远程仓库...${NC}"
@@ -94,7 +103,7 @@ git push origin main
 # 生成发布说明
 RELEASE_NOTES_FILE="/tmp/release-notes-$VERSION.md"
 cat > "$RELEASE_NOTES_FILE" << EOF
-## yai-loguru-sinks v$VERSION
+## $PACKAGE_NAME v$VERSION
 
 ### 🚀 新功能
 - 基于 sink 工厂的架构设计
@@ -105,7 +114,7 @@ cat > "$RELEASE_NOTES_FILE" << EOF
 ### 📦 安装
 
 \`\`\`bash
-pip install yai-loguru-sinks==$VERSION
+pip install $PACKAGE_NAME==$VERSION
 \`\`\`
 
 ### 🔧 使用示例
@@ -127,7 +136,7 @@ logger.info("Hello, World!")
 
 ### 🔗 相关链接
 
-- [PyPI 页面](https://pypi.org/project/yai-loguru-sinks/$VERSION/)
+- [PyPI 页面](https://pypi.org/project/$PACKAGE_NAME/$VERSION/)
 - [更新日志](https://github.com/yai-nexus/loguru-suite/releases)
 EOF
 
@@ -136,7 +145,7 @@ echo -e "${BLUE}创建 GitHub Release...${NC}"
 if [[ "$TEST_MODE" == "true" ]]; then
     # 测试模式：直接发布 Release（标记为测试版本）
     gh release create "v$VERSION" \
-        --title "yai-loguru-sinks v$VERSION (Test)" \
+        --title "$PACKAGE_NAME v$VERSION (Test)" \
         --notes-file "$RELEASE_NOTES_FILE" \
         $PRERELEASE
     echo -e "${GREEN}测试 Release 已发布！${NC}"
@@ -144,7 +153,7 @@ if [[ "$TEST_MODE" == "true" ]]; then
 else
     # 正式模式：直接发布 Release
     gh release create "v$VERSION" \
-        --title "yai-loguru-sinks v$VERSION" \
+        --title "$PACKAGE_NAME v$VERSION" \
         --notes-file "$RELEASE_NOTES_FILE" \
         $PRERELEASE
     echo -e "${GREEN}GitHub Release 已发布！${NC}"
@@ -163,11 +172,11 @@ if [[ "$TEST_MODE" == "true" ]]; then
     echo "- GitHub Release 已自动发布"
     echo "- TestPyPI 发布工作流已自动触发"
     echo "- 查看进度: https://github.com/yai-nexus/loguru-suite/actions"
-    echo "- 测试安装: pip install --index-url https://test.pypi.org/simple/ yai-loguru-sinks==$VERSION"
+    echo "- 测试安装: pip install --index-url https://test.pypi.org/simple/ $PACKAGE_NAME==$VERSION"
 else
     echo -e "${BLUE}自动化信息:${NC}"
     echo "- GitHub Release 已自动发布"
     echo "- PyPI 发布工作流已自动触发"
     echo "- 查看进度: https://github.com/yai-nexus/loguru-suite/actions"
-    echo "- 安装命令: pip install yai-loguru-sinks==$VERSION"
+    echo "- 安装命令: pip install $PACKAGE_NAME==$VERSION"
 fi
