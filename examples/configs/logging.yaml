@@ -3,12 +3,12 @@
 
 handlers:
   # 阿里云 SLS - 错误和警告日志
-  - sink: sls://my-project/error-logs?region=cn-hangzhou&topic=python-app&batch_size=50&flush_interval=5.0
+  - sink: sls://yai-log-test/app-log?region=cn-beijing&topic=python-app&batch_size=50&flush_interval=5.0
     level: ERROR
     format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
     
   # 阿里云 SLS - 警告日志
-  - sink: sls://my-project/warning-logs?region=cn-hangzhou&topic=python-app&batch_size=30&flush_interval=3.0
+  - sink: sls://yai-log-test/app-log?region=cn-beijing&topic=python-warning&batch_size=30&flush_interval=3.0
     level: WARNING
     format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{function}:{line} | {message}"
     

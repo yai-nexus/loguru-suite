@@ -13,11 +13,23 @@ def config_driven_example():
     """配置驱动的使用方式"""
     from yai_loguru_sinks import setup_extended_config, create_config_from_file
     
-    # 设置环境变量（实际使用中应该在环境中设置）
-    os.environ.update({
-        'SLS_ACCESS_KEY_ID': 'your-access-key-id',
-        'SLS_ACCESS_KEY_SECRET': 'your-access-key-secret',
-    })
+    # 加载 .env 文件（如果存在）
+    try:
+        from dotenv import load_dotenv
+        load_dotenv('../.env')  # 加载根目录的 .env 文件
+        print("✅ 已加载 .env 文件")
+    except ImportError:
+        print("⚠️  python-dotenv 未安装，跳过 .env 文件加载")
+    
+    # 检查环境变量
+    access_key_id = os.getenv('SLS_ACCESS_KEY_ID')
+    access_key_secret = os.getenv('SLS_ACCESS_KEY_SECRET')
+    
+    if not access_key_id or not access_key_secret:
+        print("⚠️  SLS 环境变量未设置，使用模拟模式")
+        return
+    
+    print(f"✅ 使用 SLS 配置: {access_key_id[:8]}...")
     
     # 注册企业级协议解析器
     setup_extended_config()
@@ -29,6 +41,8 @@ def config_driven_example():
     logger.info("这是一条信息日志")
     logger.warning("这是一条警告日志")
     logger.error("这是一条错误日志")
+    
+    print("✅ 配置驱动示例完成")
 
 
 # 方式二：直接使用 sink 工厂
@@ -36,20 +50,31 @@ def direct_sink_example():
     """直接使用 sink 工厂的方式"""
     from yai_loguru_sinks import create_sls_sink
     
-    # 创建 SLS sink
-    sls_sink = create_sls_sink(
-        project="my-project",
-        logstore="my-logstore", 
-        region="cn-hangzhou",
-        access_key_id="your-access-key-id",
-        access_key_secret="your-access-key-secret",
-        topic="python-app",
-        batch_size=50,
-        flush_interval=5.0
-    )
+    # 检查环境变量
+    access_key_id = os.getenv('SLS_ACCESS_KEY_ID')
+    access_key_secret = os.getenv('SLS_ACCESS_KEY_SECRET')
+    project = os.getenv('SLS_PROJECT', 'yai-log-test')
+    logstore = os.getenv('SLS_LOGSTORE', 'app-log')
+    region = os.getenv('SLS_DEFAULT_REGION', 'cn-beijing')
     
-    # 添加到 logger
-    logger.add(sls_sink, level="WARNING")
+    if not access_key_id or not access_key_secret:
+        print("⚠️  SLS 环境变量未设置，跳过 SLS sink 创建")
+    else:
+        # 创建 SLS sink
+        sls_sink = create_sls_sink(
+            project=project,
+            logstore=logstore, 
+            region=region,
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            topic="python-app",
+            batch_size=50,
+            flush_interval=5.0
+        )
+        
+        # 添加到 logger
+        logger.add(sls_sink, level="WARNING")
+        print(f"✅ 已添加 SLS sink: {project}/{logstore}")
     
     # 添加本地文件 sink（Loguru 原生）
     logger.add(
@@ -59,11 +84,14 @@ def direct_sink_example():
         retention="30 days",
         compression="gz"
     )
+    print("✅ 已添加本地文件 sink: logs/app.log")
     
     # 使用 logger
     logger.info("这条日志只会写入本地文件")
     logger.warning("这条日志会同时写入 SLS 和本地文件")
     logger.error("这条日志会同时写入 SLS 和本地文件")
+    
+    print("✅ 直接使用 sink 工厂示例完成")
 
 
 # 方式三：混合使用
@@ -71,9 +99,18 @@ def hybrid_example():
     """混合使用配置文件和代码的方式"""
     from yai_loguru_sinks import setup_extended_config, create_config_from_file, create_sls_sink
     
+    # 检查环境变量
+    access_key_id = os.getenv('SLS_ACCESS_KEY_ID')
+    access_key_secret = os.getenv('SLS_ACCESS_KEY_SECRET')
+    
+    if not access_key_id or not access_key_secret:
+        print("⚠️  SLS 环境变量未设置，跳过混合示例")
+        return
+    
     # 先从配置文件加载基础配置
     setup_extended_config()
     config = create_config_from_file('configs/logging.yaml')
+    print("✅ 已加载基础配置文件")
     
     # 然后根据运行时条件添加额外的 sink
     if os.getenv('ENABLE_EXTRA_SLS') == 'true':
@@ -84,9 +121,11 @@ def hybrid_example():
             topic="extra-logs"
         )
         logger.add(extra_sls_sink, level="ERROR")
+        print("✅ 已添加额外的 SLS sink")
     
     # 使用 logger
     logger.info("混合配置示例")
+    print("✅ 混合使用示例完成")
 
 
 # 方式四：对比传统插件系统
@@ -141,6 +180,14 @@ def multi_environment_example():
     """多环境配置示例"""
     from yai_loguru_sinks import setup_extended_config, create_config_from_file
     
+    # 检查环境变量
+    access_key_id = os.getenv('SLS_ACCESS_KEY_ID')
+    access_key_secret = os.getenv('SLS_ACCESS_KEY_SECRET')
+    
+    if not access_key_id or not access_key_secret:
+        print("⚠️  SLS 环境变量未设置，跳过多环境示例")
+        return
+    
     # 根据环境变量选择配置文件
     env = os.getenv('ENVIRONMENT', 'development')
     config_file = f'configs/logging-{env}.yaml'
@@ -148,11 +195,15 @@ def multi_environment_example():
     # 如果环境特定配置不存在，使用默认配置
     if not os.path.exists(config_file):
         config_file = 'configs/logging.yaml'
+        print(f"✅ 使用默认配置文件: {config_file}")
+    else:
+        print(f"✅ 使用环境特定配置文件: {config_file}")
     
     setup_extended_config()
     config = create_config_from_file(config_file)
     
     logger.info(f"使用 {env} 环境配置")
+    print("✅ 多环境配置示例完成")
 
 
 if __name__ == "__main__":

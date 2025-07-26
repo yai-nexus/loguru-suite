@@ -1,0 +1,27 @@
+11:23:43 | INFO | __main__:config_driven_example:29 | 这是一条信息日志
+11:23:43 | WARNING | __main__:config_driven_example:30 | 这是一条警告日志
+11:23:43 | ERROR | __main__:config_driven_example:31 | 这是一条错误日志
+11:23:43 | INFO | __main__:direct_sink_example:64 | 这条日志只会写入本地文件
+11:23:43 | WARNING | __main__:direct_sink_example:65 | 这条日志会同时写入 SLS 和本地文件
+11:23:43 | ERROR | __main__:direct_sink_example:66 | 这条日志会同时写入 SLS 和本地文件
+11:23:43 | INFO | __main__:hybrid_example:89 | 混合配置示例
+11:23:43 | INFO | __main__:multi_environment_example:155 | 使用 development 环境配置
+11:25:01 | INFO | __main__:config_driven_example:41 | 这是一条信息日志
+11:25:01 | WARNING | __main__:config_driven_example:42 | 这是一条警告日志
+11:25:01 | ERROR | __main__:config_driven_example:43 | 这是一条错误日志
+11:25:01 | INFO | __main__:direct_sink_example:90 | 这条日志只会写入本地文件
+11:25:01 | WARNING | __main__:direct_sink_example:91 | 这条日志会同时写入 SLS 和本地文件
+11:25:01 | ERROR | __main__:direct_sink_example:92 | 这条日志会同时写入 SLS 和本地文件
+11:25:01 | INFO | __main__:hybrid_example:127 | 混合配置示例
+11:25:01 | INFO | __main__:multi_environment_example:205 | 使用 development 环境配置
+11:30:10 | INFO | __main__:test_with_yai_loguru_sinks:88 | [测试] 信息日志 - 2025-07-26 11:30:10
+11:30:10 | WARNING | __main__:test_with_yai_loguru_sinks:89 | [测试] 警告日志 - 2025-07-26 11:30:10 - 这条应该发送到 SLS
+11:30:10 | ERROR | __main__:test_with_yai_loguru_sinks:90 | [测试] 错误日志 - 2025-07-26 11:30:10 - 这条应该发送到 SLS
+11:30:23 | INFO | __main__:config_driven_example:41 | 这是一条信息日志
+11:30:23 | WARNING | __main__:config_driven_example:42 | 这是一条警告日志
+11:30:23 | ERROR | __main__:config_driven_example:43 | 这是一条错误日志
+11:30:23 | INFO | __main__:direct_sink_example:90 | 这条日志只会写入本地文件
+11:30:23 | WARNING | __main__:direct_sink_example:91 | 这条日志会同时写入 SLS 和本地文件
+11:30:23 | ERROR | __main__:direct_sink_example:92 | 这条日志会同时写入 SLS 和本地文件
+11:30:23 | INFO | __main__:hybrid_example:127 | 混合配置示例
+11:30:23 | INFO | __main__:multi_environment_example:205 | 使用 development 环境配置
