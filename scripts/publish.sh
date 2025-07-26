@@ -37,6 +37,12 @@ for arg in "$@"; do
     esac
 done
 
+# 自动检测预发布版本
+if [[ "$VERSION" =~ (alpha|beta|rc|a|b|dev) ]]; then
+    PRERELEASE="--prerelease"
+    echo -e "${YELLOW}自动检测到预发布版本：$VERSION${NC}"
+fi
+
 if [[ -z "$VERSION" ]]; then
     echo -e "${RED}错误：请提供版本号${NC}"
     echo "用法: $0 <version> [--test] [--prerelease]"
