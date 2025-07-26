@@ -82,7 +82,7 @@ jobs:
       run: |
         cd packages/yai-loguru-sinks
         echo "发布到测试 PyPI..."
-        uv publish --repository testpypi dist/*
+        uv publish --publish-url https://test.pypi.org/legacy/ dist/*
         
     - name: 发布到正式 PyPI
       if: |
