@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yai-loguru-sinks"
-version = "0.6.1"
+version = "0.6.2"
 description = "企业级 Loguru Sink 工厂，基于 loguru-config 的简洁架构，专注于阿里云 SLS 支持"
 readme = "README.md"
 license = { text = "MIT" }

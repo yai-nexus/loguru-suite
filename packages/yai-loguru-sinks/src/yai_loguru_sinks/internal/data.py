@@ -29,9 +29,7 @@ class SlsConfig:
     max_retries: int = 3
     timeout: float = 30.0
     
-    # PackId 配置
-    enable_pack_id: bool = True
-    context_prefix: Optional[str] = None
+    # PackId 功能默认启用，无需配置
     
     # 其他配置
     compress: bool = True

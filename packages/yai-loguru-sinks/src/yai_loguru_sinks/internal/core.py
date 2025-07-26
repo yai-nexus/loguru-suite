@@ -37,10 +37,7 @@ class SlsSink:
         )
         
         # 初始化 PackId 管理器
-        self.pack_id_manager = create_pack_id_manager(
-            enable_pack_id=config.enable_pack_id,
-            context_prefix=config.context_prefix
-        )
+        self.pack_id_manager = create_pack_id_manager()
         
         # 初始化队列和异步处理器
         self.log_queue: Queue = Queue()
