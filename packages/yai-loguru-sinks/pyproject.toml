@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "yai-loguru-sinks"
-version = "0.5.0a1"
+version = "0.5.0rc1"
 description = "企业级 Loguru Sink 工厂，基于 loguru-config 的简洁架构，专注于阿里云 SLS 支持"
 readme = "README.md"
 license = { text = "MIT" }
@@ -12,20 +12,19 @@ authors = [
     { name = "Harry Tang", email = "harry@example.com" }
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: System :: Logging",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 keywords = ["loguru", "logging", "sls", "aliyun", "sink", "enterprise"]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 dependencies = [
     "loguru>=0.7.0",
     "loguru-config>=0.1.0",
@@ -54,14 +53,14 @@ packages = ["src/yai_loguru_sinks"]
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py310']
 
 [tool.isort]
 profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "0.5.0a1"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
