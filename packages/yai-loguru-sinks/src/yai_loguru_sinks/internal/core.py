@@ -71,6 +71,11 @@ class SlsSink:
                 'line': record.get('line', 0),
             }
             
+            # 处理 extra 字段 - loguru 将 extra 参数存储在 record['extra']['extra'] 中
+            record_extra = record.get('extra', {})
+            if 'extra' in record_extra and record_extra['extra']:
+                log_data['extra'] = record_extra['extra']
+            
             self.log_queue.put(log_data)
                 
         except Exception as e:

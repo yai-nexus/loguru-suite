@@ -87,6 +87,11 @@ class AsyncHandler:
                     ('line', str(msg['line'])),
                 ]
                 
+                # 添加 extra 字段（如果存在）
+                if 'extra' in msg and msg['extra']:
+                    import json
+                    contents.append(('extra', json.dumps(msg['extra'], ensure_ascii=False)))
+                
                 log_item = LogItem()
                 log_item.set_time(int(msg['timestamp']))
                 log_item.set_contents(contents)
