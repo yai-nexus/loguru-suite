@@ -158,8 +158,8 @@ class SlsSink:
             # 发送到SLS
             response = self.client.put_logs(request)
             
-            if not response.is_success():
-                print(f"SLS发送失败: {response.get_error_message()}")
+            # 注意：put_logs 如果成功不会抛出异常，失败会抛出 LogException
+            # 所以这里不需要检查 is_success()，能执行到这里说明发送成功
                 
         except Exception as e:
             print(f"SLS消息发送错误: {e}")
@@ -214,17 +214,12 @@ def create_sls_sink(
     Returns:
         可调用的 sink 函数
     """
-    # 从环境变量获取认证信息
-    if not access_key_id:
-        access_key_id = os.getenv("SLS_ACCESS_KEY_ID")
-    if not access_key_secret:
-        access_key_secret = os.getenv("SLS_ACCESS_KEY_SECRET")
+    from .config import resolve_sls_credentials
     
-    if not access_key_id or not access_key_secret:
-        raise ValueError(
-            "SLS 认证信息缺失，请提供 access_key_id 和 access_key_secret "
-            "或设置环境变量 SLS_ACCESS_KEY_ID 和 SLS_ACCESS_KEY_SECRET"
-        )
+    # 解析认证信息（统一在 config.py 中处理）
+    access_key_id, access_key_secret = resolve_sls_credentials(
+        access_key_id, access_key_secret
+    )
     
     # 构造 endpoint
     endpoint = f"https://{region}.log.aliyuncs.com"

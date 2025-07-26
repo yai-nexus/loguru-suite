@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """
-SLS 日志检查脚本
+SLS 日志验证模块
 检查阿里云 SLS 中是否成功接收到日志
 """
 
 import os
-import sys
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
+from loguru import logger
 
-# 加载环境变量
-load_dotenv()
 
-def check_sls_logs():
+def check_sls_logs() -> bool:
     """检查 SLS 日志"""
     try:
         from aliyun.log import LogClient  # type: ignore
@@ -119,10 +116,15 @@ def check_sls_logs():
         print(f"❌ 检查失败: {e}")
         return False
 
-def main():
-    """主函数"""
-    print("🔍 SLS 日志检查工具")
-    print("=" * 50)
+
+def validate_sls_integration() -> bool:
+    """验证 SLS 集成功能"""
+    print("\n" + "=" * 50)
+    print("🔍 开始检查 SLS 日志写入情况...")
+    print("⏳ 等待 5 秒让日志完全写入 SLS...")
+    
+    import time
+    time.sleep(5)
     
     success = check_sls_logs()
     
@@ -132,7 +134,5 @@ def main():
     else:
         print("❌ SLS 日志检查失败，请检查配置或网络连接")
     
-    return 0 if success else 1
-
-if __name__ == "__main__":
-    sys.exit(main())
+    print("\n✅ SLS 日志检查完成！")
+    return success

@@ -3,8 +3,9 @@
 注册企业级 sink 协议解析器，目前专注于阿里云 SLS 支持。
 """
 
+import os
 import re
-from typing import Any, Dict, Callable
+from typing import Any, Dict, Callable, Optional
 from urllib.parse import urlparse, parse_qs
 
 # 检查 loguru-config 是否可用
@@ -13,6 +14,39 @@ try:
     HAS_LOGURU_CONFIG = True
 except ImportError:
     HAS_LOGURU_CONFIG = False
+
+
+def resolve_sls_credentials(
+    access_key_id: Optional[str] = None,
+    access_key_secret: Optional[str] = None
+) -> tuple[str, str]:
+    """解析 SLS 认证信息
+    
+    优先使用传入的参数，如果为空则从环境变量获取
+    
+    Args:
+        access_key_id: 访问密钥ID，可选
+        access_key_secret: 访问密钥，可选
+        
+    Returns:
+        (access_key_id, access_key_secret) 元组
+        
+    Raises:
+        ValueError: 如果无法获取完整的认证信息
+    """
+    # 从环境变量获取认证信息
+    if not access_key_id:
+        access_key_id = os.getenv("SLS_ACCESS_KEY_ID")
+    if not access_key_secret:
+        access_key_secret = os.getenv("SLS_ACCESS_KEY_SECRET")
+    
+    if not access_key_id or not access_key_secret:
+        raise ValueError(
+            "SLS 认证信息缺失，请提供 access_key_id 和 access_key_secret "
+            "或设置环境变量 SLS_ACCESS_KEY_ID 和 SLS_ACCESS_KEY_SECRET"
+        )
+    
+    return access_key_id, access_key_secret
 
 
 def parse_sls_url(url: str) -> Dict[str, Any]:
@@ -112,6 +146,15 @@ def sls_protocol_parser(url: str) -> Any:
     """
     from .sls import create_sls_sink  # 延迟导入避免循环依赖
     config = parse_sls_url(url)
+    
+    # 解析认证信息
+    access_key_id, access_key_secret = resolve_sls_credentials(
+        config.get('access_key_id'),
+        config.get('access_key_secret')
+    )
+    config['access_key_id'] = access_key_id
+    config['access_key_secret'] = access_key_secret
+    
     return create_sls_sink(**config)
 
 
