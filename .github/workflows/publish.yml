@@ -52,7 +52,6 @@ jobs:
         echo "预发布: $IS_PRERELEASE"
         
     - name: 更新版本号
-      if: github.event_name == 'workflow_dispatch'
       run: |
         cd packages/yai-loguru-sinks
         sed -i "s/version = \".*\"/version = \"${{ steps.version.outputs.version }}\"/" pyproject.toml
