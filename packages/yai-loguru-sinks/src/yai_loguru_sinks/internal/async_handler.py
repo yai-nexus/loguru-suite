@@ -40,16 +40,13 @@ class AsyncHandler:
                     # 等待消息或超时
                     message = self.sink.log_queue.get(timeout=self.sink.config.flush_interval)
                     
-                    # 使用 PackId 管理器增强日志数据
-                    enhanced_message = self.sink.pack_id_manager.enhance_log_data(message)
-                    messages.append(enhanced_message)
+                    messages.append(message)
                     
                     # 继续收集直到批量大小或队列为空
                     while len(messages) < self.sink.config.batch_size:
                         try:
                             message = self.sink.log_queue.get_nowait()
-                            enhanced_message = self.sink.pack_id_manager.enhance_log_data(message)
-                            messages.append(enhanced_message)
+                            messages.append(message)
                         except Empty:
                             break
                             

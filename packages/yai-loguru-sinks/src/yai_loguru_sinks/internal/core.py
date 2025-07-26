@@ -39,9 +39,7 @@ class SlsSink:
         # 初始化 PackId 管理器
         self.pack_id_manager = create_pack_id_manager(
             enable_pack_id=config.enable_pack_id,
-            context_prefix=config.context_prefix,
-            pack_id_per_batch=config.pack_id_per_batch,
-            pack_id_per_message=config.pack_id_per_message
+            context_prefix=config.context_prefix
         )
         
         # 初始化队列和异步处理器

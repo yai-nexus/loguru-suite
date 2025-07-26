@@ -32,8 +32,6 @@ class SlsConfig:
     # PackId 配置
     enable_pack_id: bool = True
     context_prefix: Optional[str] = None
-    pack_id_per_batch: bool = True
-    pack_id_per_message: bool = False
     
     # 其他配置
     compress: bool = True
