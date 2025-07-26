@@ -1,6 +1,6 @@
 [project]
 name = "enterprise-demo"
-version = "1.0.0"
+version = "0.1.0"
 description = "企业级日志示例 - 展示 yai-loguru-sinks 的 SLS 集成功能"
 authors = [
     {name = "YAI Team", email = "team@yai.com"}
@@ -9,7 +9,8 @@ readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
     "loguru>=0.7.0",
-    "yai-loguru-sinks>=1.0.0",
+    "yai-loguru-sinks",
+    "loguru-config>=0.1.0",
     "pyyaml>=6.0",
     "python-dotenv>=1.0.0"
 ]

@@ -51,7 +51,7 @@ fi
 
 # 检查依赖
 echo "🔍 检查依赖..."
-if ! python3 -c "import yai_loguru_sinks" 2>/dev/null; then
+if ! uv run python -c "import yai_loguru_sinks" 2>/dev/null; then
     echo "⚠️ 警告：未找到 yai-loguru-sinks，请确保已安装"
     echo "💡 提示：请在项目根目录运行 'uv sync' 安装依赖"
     echo ""
@@ -59,7 +59,7 @@ fi
 
 # 运行示例
 echo "▶️ 运行示例..."
-python3 main.py
+uv run main.py
 
 echo ""
 echo "✅ 示例运行完成！"

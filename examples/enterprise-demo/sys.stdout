@@ -27,3 +27,405 @@
 
 [31m[1mZeroDivisionError[0m:[1m division by zero[0m
 2025-07-26 12:27:17 | INFO     | __main__:main:151 - Enterprise Demo 运行完成
+2025-07-26 12:51:27 | INFO     | __main__:setup_logging:27 - 日志系统初始化完成
+2025-07-26 12:51:27 | WARNING  | __main__:check_sls_config:45 - 缺少 SLS 环境变量: SLS_REGION
+2025-07-26 12:51:27 | INFO     | __main__:check_sls_config:46 - 请参考 .env.example 文件配置 SLS 环境变量
+2025-07-26 12:51:27 | INFO     | __main__:main:141 - SLS 功能未启用，仅使用本地日志
+2025-07-26 12:51:27 | INFO     | __main__:demo_basic_logging:54 - === 基础日志示例 ===
+2025-07-26 12:51:27 | INFO     | __main__:demo_basic_logging:57 - 这是普通信息
+2025-07-26 12:51:27 | WARNING  | __main__:demo_basic_logging:58 - 这是警告信息
+2025-07-26 12:51:27 | ERROR    | __main__:demo_basic_logging:59 - 这是错误信息
+2025-07-26 12:51:27 | INFO     | __main__:demo_structured_logging:63 - === 结构化日志示例 ===
+2025-07-26 12:51:27 | INFO     | __main__:demo_structured_logging:66 - 用户登录
+2025-07-26 12:51:27 | INFO     | __main__:demo_structured_logging:76 - API 调用
+2025-07-26 12:51:27 | INFO     | __main__:demo_structured_logging:85 - 业务指标
+2025-07-26 12:51:27 | INFO     | __main__:demo_error_logging:95 - === 错误日志示例 ===
+2025-07-26 12:51:27 | ERROR    | __main__:demo_error_logging:101 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m158[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x109f409a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m146[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x109f40860>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m99[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 12:51:27 | INFO     | __main__:main:151 - Enterprise Demo 运行完成
+2025-07-26 12:53:32 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 12:53:32 | INFO     | __main__:check_sls_config:69 - SLS 配置检查通过
+2025-07-26 12:53:32 | INFO     | __main__:main:159 - SLS 功能已启用
+2025-07-26 12:53:32 | INFO     | __main__:demo_basic_logging:74 - === 基础日志示例 ===
+2025-07-26 12:53:32 | INFO     | __main__:demo_basic_logging:77 - 这是普通信息
+2025-07-26 12:53:32 | WARNING  | __main__:demo_basic_logging:78 - 这是警告信息
+2025-07-26 12:53:32 | ERROR    | __main__:demo_basic_logging:79 - 这是错误信息
+2025-07-26 12:53:32 | INFO     | __main__:demo_structured_logging:83 - === 结构化日志示例 ===
+2025-07-26 12:53:32 | INFO     | __main__:demo_structured_logging:86 - 用户登录
+2025-07-26 12:53:32 | INFO     | __main__:demo_structured_logging:96 - API 调用
+2025-07-26 12:53:32 | INFO     | __main__:demo_structured_logging:105 - 业务指标
+2025-07-26 12:53:32 | INFO     | __main__:demo_error_logging:115 - === 错误日志示例 ===
+2025-07-26 12:53:32 | ERROR    | __main__:demo_error_logging:121 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m178[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1076439c0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m166[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x107643880>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m119[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 12:53:32 | INFO     | __main__:demo_sls_logging:129 - === SLS 日志示例 ===
+2025-07-26 12:53:32 | INFO     | __main__:demo_sls_logging:132 - 企业级日志记录
+2025-07-26 12:53:32 | WARNING  | __main__:demo_sls_logging:140 - 安全事件
+2025-07-26 12:53:32 | INFO     | __main__:main:171 - Enterprise Demo 运行完成
+2025-07-26 12:55:41 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 12:55:41 | INFO     | __main__:check_sls_config:69 - SLS 配置检查通过
+2025-07-26 12:55:41 | INFO     | __main__:main:159 - SLS 功能已启用
+2025-07-26 12:55:41 | INFO     | __main__:demo_basic_logging:74 - === 基础日志示例 ===
+2025-07-26 12:55:41 | INFO     | __main__:demo_basic_logging:77 - 这是普通信息
+2025-07-26 12:55:41 | WARNING  | __main__:demo_basic_logging:78 - 这是警告信息
+2025-07-26 12:55:41 | ERROR    | __main__:demo_basic_logging:79 - 这是错误信息
+2025-07-26 12:55:41 | INFO     | __main__:demo_structured_logging:83 - === 结构化日志示例 ===
+2025-07-26 12:55:41 | INFO     | __main__:demo_structured_logging:86 - 用户登录
+2025-07-26 12:55:41 | INFO     | __main__:demo_structured_logging:96 - API 调用
+2025-07-26 12:55:41 | INFO     | __main__:demo_structured_logging:105 - 业务指标
+2025-07-26 12:55:41 | INFO     | __main__:demo_error_logging:115 - === 错误日志示例 ===
+2025-07-26 12:55:41 | ERROR    | __main__:demo_error_logging:121 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m178[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1065436a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m166[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x106543560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m119[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 12:55:41 | INFO     | __main__:demo_sls_logging:129 - === SLS 日志示例 ===
+2025-07-26 12:55:41 | INFO     | __main__:demo_sls_logging:132 - 企业级日志记录
+2025-07-26 12:55:41 | WARNING  | __main__:demo_sls_logging:140 - 安全事件
+2025-07-26 12:55:41 | INFO     | __main__:main:171 - Enterprise Demo 运行完成
+2025-07-26 12:57:49 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 12:57:49 | INFO     | __main__:check_sls_config:69 - SLS 配置检查通过
+2025-07-26 12:57:49 | INFO     | __main__:main:159 - SLS 功能已启用
+2025-07-26 12:57:49 | INFO     | __main__:demo_basic_logging:74 - === 基础日志示例 ===
+2025-07-26 12:57:49 | INFO     | __main__:demo_basic_logging:77 - 这是普通信息
+2025-07-26 12:57:49 | WARNING  | __main__:demo_basic_logging:78 - 这是警告信息
+2025-07-26 12:57:49 | ERROR    | __main__:demo_basic_logging:79 - 这是错误信息
+2025-07-26 12:57:49 | INFO     | __main__:demo_structured_logging:83 - === 结构化日志示例 ===
+2025-07-26 12:57:49 | INFO     | __main__:demo_structured_logging:86 - 用户登录
+2025-07-26 12:57:49 | INFO     | __main__:demo_structured_logging:96 - API 调用
+2025-07-26 12:57:49 | INFO     | __main__:demo_structured_logging:105 - 业务指标
+2025-07-26 12:57:49 | INFO     | __main__:demo_error_logging:115 - === 错误日志示例 ===
+2025-07-26 12:57:49 | ERROR    | __main__:demo_error_logging:121 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m178[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1103436a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m166[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x110343560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m119[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 12:57:49 | INFO     | __main__:demo_sls_logging:129 - === SLS 日志示例 ===
+2025-07-26 12:57:49 | INFO     | __main__:demo_sls_logging:132 - 企业级日志记录
+2025-07-26 12:57:49 | WARNING  | __main__:demo_sls_logging:140 - 安全事件
+2025-07-26 12:57:49 | INFO     | __main__:main:171 - Enterprise Demo 运行完成
+2025-07-26 13:00:46 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:00:46 | WARNING  | __main__:check_sls_config:65 - 缺少 SLS 环境变量: SLS_PROJECT, SLS_LOGSTORE, SLS_REGION
+2025-07-26 13:00:46 | INFO     | __main__:check_sls_config:66 - 请参考 .env.example 文件配置 SLS 环境变量
+2025-07-26 13:00:46 | INFO     | __main__:main:161 - SLS 功能未启用，仅使用本地日志
+2025-07-26 13:00:46 | INFO     | __main__:demo_basic_logging:74 - === 基础日志示例 ===
+2025-07-26 13:00:46 | INFO     | __main__:demo_basic_logging:77 - 这是普通信息
+2025-07-26 13:00:46 | WARNING  | __main__:demo_basic_logging:78 - 这是警告信息
+2025-07-26 13:00:46 | ERROR    | __main__:demo_basic_logging:79 - 这是错误信息
+2025-07-26 13:00:46 | INFO     | __main__:demo_structured_logging:83 - === 结构化日志示例 ===
+2025-07-26 13:00:46 | INFO     | __main__:demo_structured_logging:86 - 用户登录
+2025-07-26 13:00:46 | INFO     | __main__:demo_structured_logging:96 - API 调用
+2025-07-26 13:00:46 | INFO     | __main__:demo_structured_logging:105 - 业务指标
+2025-07-26 13:00:46 | INFO     | __main__:demo_error_logging:115 - === 错误日志示例 ===
+2025-07-26 13:00:46 | ERROR    | __main__:demo_error_logging:121 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m178[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1054436a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m166[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x105443560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m119[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:00:46 | INFO     | __main__:main:171 - Enterprise Demo 运行完成
+2025-07-26 13:01:20 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:01:20 | INFO     | __main__:check_sls_config:63 - SLS 配置检查通过
+2025-07-26 13:01:20 | INFO     | __main__:main:153 - SLS 功能已启用
+2025-07-26 13:01:20 | INFO     | __main__:demo_basic_logging:68 - === 基础日志示例 ===
+2025-07-26 13:01:20 | INFO     | __main__:demo_basic_logging:71 - 这是普通信息
+2025-07-26 13:01:20 | WARNING  | __main__:demo_basic_logging:72 - 这是警告信息
+2025-07-26 13:01:20 | ERROR    | __main__:demo_basic_logging:73 - 这是错误信息
+2025-07-26 13:01:20 | INFO     | __main__:demo_structured_logging:77 - === 结构化日志示例 ===
+2025-07-26 13:01:20 | INFO     | __main__:demo_structured_logging:80 - 用户登录
+2025-07-26 13:01:20 | INFO     | __main__:demo_structured_logging:90 - API 调用
+2025-07-26 13:01:20 | INFO     | __main__:demo_structured_logging:99 - 业务指标
+2025-07-26 13:01:20 | INFO     | __main__:demo_error_logging:109 - === 错误日志示例 ===
+2025-07-26 13:01:20 | ERROR    | __main__:demo_error_logging:115 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m172[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1044436a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m160[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x104443560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m113[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:01:20 | INFO     | __main__:demo_sls_logging:123 - === SLS 日志示例 ===
+2025-07-26 13:01:20 | INFO     | __main__:demo_sls_logging:126 - 企业级日志记录
+2025-07-26 13:01:20 | WARNING  | __main__:demo_sls_logging:134 - 安全事件
+2025-07-26 13:01:20 | INFO     | __main__:main:165 - Enterprise Demo 运行完成
+2025-07-26 13:11:10 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:11:10 | INFO     | __main__:check_sls_config:63 - SLS 配置检查通过
+2025-07-26 13:11:10 | INFO     | __main__:main:153 - SLS 功能已启用
+2025-07-26 13:11:10 | INFO     | __main__:demo_basic_logging:68 - === 基础日志示例 ===
+2025-07-26 13:11:10 | INFO     | __main__:demo_basic_logging:71 - 这是普通信息
+2025-07-26 13:11:10 | WARNING  | __main__:demo_basic_logging:72 - 这是警告信息
+2025-07-26 13:11:10 | ERROR    | __main__:demo_basic_logging:73 - 这是错误信息
+2025-07-26 13:11:10 | INFO     | __main__:demo_structured_logging:77 - === 结构化日志示例 ===
+2025-07-26 13:11:10 | INFO     | __main__:demo_structured_logging:80 - 用户登录
+2025-07-26 13:11:10 | INFO     | __main__:demo_structured_logging:90 - API 调用
+2025-07-26 13:11:10 | INFO     | __main__:demo_structured_logging:99 - 业务指标
+2025-07-26 13:11:10 | INFO     | __main__:demo_error_logging:109 - === 错误日志示例 ===
+2025-07-26 13:11:10 | ERROR    | __main__:demo_error_logging:115 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m172[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x107e376a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m160[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x107e37560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m113[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:11:10 | INFO     | __main__:demo_sls_logging:123 - === SLS 日志示例 ===
+2025-07-26 13:11:10 | INFO     | __main__:demo_sls_logging:126 - 企业级日志记录
+2025-07-26 13:11:10 | WARNING  | __main__:demo_sls_logging:134 - 安全事件
+2025-07-26 13:11:10 | INFO     | __main__:main:165 - Enterprise Demo 运行完成
+2025-07-26 13:14:35 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:14:35 | INFO     | __main__:check_sls_config:63 - SLS 配置检查通过
+2025-07-26 13:14:35 | INFO     | __main__:main:153 - SLS 功能已启用
+2025-07-26 13:14:35 | INFO     | __main__:demo_basic_logging:68 - === 基础日志示例 ===
+2025-07-26 13:14:35 | INFO     | __main__:demo_basic_logging:71 - 这是普通信息
+2025-07-26 13:14:35 | WARNING  | __main__:demo_basic_logging:72 - 这是警告信息
+2025-07-26 13:14:35 | ERROR    | __main__:demo_basic_logging:73 - 这是错误信息
+2025-07-26 13:14:35 | INFO     | __main__:demo_structured_logging:77 - === 结构化日志示例 ===
+2025-07-26 13:14:35 | INFO     | __main__:demo_structured_logging:80 - 用户登录
+2025-07-26 13:14:35 | INFO     | __main__:demo_structured_logging:90 - API 调用
+2025-07-26 13:14:35 | INFO     | __main__:demo_structured_logging:99 - 业务指标
+2025-07-26 13:14:35 | INFO     | __main__:demo_error_logging:109 - === 错误日志示例 ===
+2025-07-26 13:14:35 | ERROR    | __main__:demo_error_logging:115 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m172[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x103c436a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m160[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x103c43560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m113[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:14:35 | INFO     | __main__:demo_sls_logging:123 - === SLS 日志示例 ===
+2025-07-26 13:14:35 | INFO     | __main__:demo_sls_logging:126 - 企业级日志记录
+2025-07-26 13:14:35 | WARNING  | __main__:demo_sls_logging:134 - 安全事件
+2025-07-26 13:14:35 | INFO     | __main__:main:165 - Enterprise Demo 运行完成
+2025-07-26 13:16:23 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:16:23 | INFO     | __main__:check_sls_config:63 - SLS 配置检查通过
+2025-07-26 13:16:23 | INFO     | __main__:main:153 - SLS 功能已启用
+2025-07-26 13:16:23 | INFO     | __main__:demo_basic_logging:68 - === 基础日志示例 ===
+2025-07-26 13:16:23 | INFO     | __main__:demo_basic_logging:71 - 这是普通信息
+2025-07-26 13:16:23 | WARNING  | __main__:demo_basic_logging:72 - 这是警告信息
+2025-07-26 13:16:23 | ERROR    | __main__:demo_basic_logging:73 - 这是错误信息
+2025-07-26 13:16:23 | INFO     | __main__:demo_structured_logging:77 - === 结构化日志示例 ===
+2025-07-26 13:16:23 | INFO     | __main__:demo_structured_logging:80 - 用户登录
+2025-07-26 13:16:23 | INFO     | __main__:demo_structured_logging:90 - API 调用
+2025-07-26 13:16:23 | INFO     | __main__:demo_structured_logging:99 - 业务指标
+2025-07-26 13:16:23 | INFO     | __main__:demo_error_logging:109 - === 错误日志示例 ===
+2025-07-26 13:16:23 | ERROR    | __main__:demo_error_logging:115 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m172[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x105c43880>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m160[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x105c43740>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m113[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:16:23 | INFO     | __main__:demo_sls_logging:123 - === SLS 日志示例 ===
+2025-07-26 13:16:23 | INFO     | __main__:demo_sls_logging:126 - 企业级日志记录
+2025-07-26 13:16:23 | WARNING  | __main__:demo_sls_logging:134 - 安全事件
+2025-07-26 13:16:23 | INFO     | __main__:main:165 - Enterprise Demo 运行完成
+2025-07-26 13:17:18 | INFO     | __main__:setup_logging:37 - 日志系统初始化完成
+2025-07-26 13:17:18 | INFO     | __main__:check_sls_config:63 - SLS 配置检查通过
+2025-07-26 13:17:18 | INFO     | __main__:main:153 - SLS 功能已启用
+2025-07-26 13:17:18 | INFO     | __main__:demo_basic_logging:68 - === 基础日志示例 ===
+2025-07-26 13:17:18 | INFO     | __main__:demo_basic_logging:71 - 这是普通信息
+2025-07-26 13:17:18 | WARNING  | __main__:demo_basic_logging:72 - 这是警告信息
+2025-07-26 13:17:18 | ERROR    | __main__:demo_basic_logging:73 - 这是错误信息
+2025-07-26 13:17:18 | INFO     | __main__:demo_structured_logging:77 - === 结构化日志示例 ===
+2025-07-26 13:17:18 | INFO     | __main__:demo_structured_logging:80 - 用户登录
+2025-07-26 13:17:18 | INFO     | __main__:demo_structured_logging:90 - API 调用
+2025-07-26 13:17:18 | INFO     | __main__:demo_structured_logging:99 - 业务指标
+2025-07-26 13:17:18 | INFO     | __main__:demo_error_logging:109 - === 错误日志示例 ===
+2025-07-26 13:17:18 | ERROR    | __main__:demo_error_logging:115 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m172[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x12104f380>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m160[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x12104f240>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m113[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:17:18 | INFO     | __main__:demo_sls_logging:123 - === SLS 日志示例 ===
+2025-07-26 13:17:18 | INFO     | __main__:demo_sls_logging:126 - 企业级日志记录
+2025-07-26 13:17:18 | WARNING  | __main__:demo_sls_logging:134 - 安全事件
+2025-07-26 13:17:18 | INFO     | __main__:main:165 - Enterprise Demo 运行完成
+2025-07-26 13:22:04 | INFO     | __main__:setup_logging:39 - 日志系统初始化完成
+2025-07-26 13:22:04 | INFO     | __main__:check_sls_config:65 - SLS 配置检查通过
+2025-07-26 13:22:04 | INFO     | __main__:main:211 - SLS 功能已启用
+2025-07-26 13:22:04 | INFO     | __main__:demo_basic_logging:70 - === 基础日志示例 ===
+2025-07-26 13:22:04 | INFO     | __main__:demo_basic_logging:73 - 这是普通信息
+2025-07-26 13:22:04 | WARNING  | __main__:demo_basic_logging:74 - 这是警告信息
+2025-07-26 13:22:04 | ERROR    | __main__:demo_basic_logging:75 - 这是错误信息
+2025-07-26 13:22:04 | INFO     | __main__:demo_structured_logging:79 - === 结构化日志示例 ===
+2025-07-26 13:22:04 | INFO     | __main__:demo_structured_logging:82 - 用户登录
+2025-07-26 13:22:04 | INFO     | __main__:demo_structured_logging:92 - API 调用
+2025-07-26 13:22:04 | INFO     | __main__:demo_structured_logging:101 - 业务指标
+2025-07-26 13:22:04 | INFO     | __main__:demo_error_logging:111 - === 错误日志示例 ===
+2025-07-26 13:22:04 | ERROR    | __main__:demo_error_logging:117 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m237[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x1030434c0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m218[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x1030432e0>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m115[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:22:04 | INFO     | __main__:demo_sls_logging:125 - === SLS 日志示例 ===
+2025-07-26 13:22:04 | INFO     | __main__:demo_sls_logging:128 - 企业级日志记录
+2025-07-26 13:22:04 | WARNING  | __main__:demo_sls_logging:136 - 安全事件
+2025-07-26 13:22:04 | INFO     | __main__:demo_sls_logging:145 - Enterprise Demo 测试日志
+2025-07-26 13:22:04 | INFO     | __main__:main:223 - Enterprise Demo 运行完成
+2025-07-26 13:25:10 | INFO     | __main__:setup_logging:41 - 日志系统初始化完成
+2025-07-26 13:25:10 | INFO     | __main__:check_sls_config:67 - SLS 配置检查通过
+2025-07-26 13:25:10 | INFO     | __main__:main:213 - SLS 功能已启用
+2025-07-26 13:25:10 | INFO     | __main__:demo_basic_logging:72 - === 基础日志示例 ===
+2025-07-26 13:25:10 | INFO     | __main__:demo_basic_logging:75 - 这是普通信息
+2025-07-26 13:25:10 | WARNING  | __main__:demo_basic_logging:76 - 这是警告信息
+2025-07-26 13:25:10 | ERROR    | __main__:demo_basic_logging:77 - 这是错误信息
+2025-07-26 13:25:10 | INFO     | __main__:demo_structured_logging:81 - === 结构化日志示例 ===
+2025-07-26 13:25:10 | INFO     | __main__:demo_structured_logging:84 - 用户登录
+2025-07-26 13:25:10 | INFO     | __main__:demo_structured_logging:94 - API 调用
+2025-07-26 13:25:10 | INFO     | __main__:demo_structured_logging:103 - 业务指标
+2025-07-26 13:25:10 | INFO     | __main__:demo_error_logging:113 - === 错误日志示例 ===
+2025-07-26 13:25:10 | ERROR    | __main__:demo_error_logging:119 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m239[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x10913f6a0>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m220[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x10913f4c0>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m117[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:25:10 | INFO     | __main__:demo_sls_logging:127 - === SLS 日志示例 ===
+2025-07-26 13:25:10 | INFO     | __main__:demo_sls_logging:130 - 企业级日志记录
+2025-07-26 13:25:10 | WARNING  | __main__:demo_sls_logging:138 - 安全事件
+2025-07-26 13:25:10 | INFO     | __main__:demo_sls_logging:147 - Enterprise Demo 测试日志
+2025-07-26 13:25:10 | INFO     | __main__:main:225 - Enterprise Demo 运行完成
+2025-07-26 13:25:58 | INFO     | __main__:setup_logging:66 - 日志系统初始化完成
+2025-07-26 13:25:58 | INFO     | __main__:check_sls_config:95 - SLS 配置检查通过
+2025-07-26 13:25:58 | INFO     | __main__:main:241 - SLS 功能已启用
+2025-07-26 13:25:58 | INFO     | __main__:demo_basic_logging:100 - === 基础日志示例 ===
+2025-07-26 13:25:58 | INFO     | __main__:demo_basic_logging:103 - 这是普通信息
+2025-07-26 13:25:58 | WARNING  | __main__:demo_basic_logging:104 - 这是警告信息
+2025-07-26 13:25:58 | ERROR    | __main__:demo_basic_logging:105 - 这是错误信息
+2025-07-26 13:25:58 | INFO     | __main__:demo_structured_logging:109 - === 结构化日志示例 ===
+2025-07-26 13:25:58 | INFO     | __main__:demo_structured_logging:112 - 用户登录
+2025-07-26 13:25:58 | INFO     | __main__:demo_structured_logging:122 - API 调用
+2025-07-26 13:25:58 | INFO     | __main__:demo_structured_logging:131 - 业务指标
+2025-07-26 13:25:58 | INFO     | __main__:demo_error_logging:141 - === 错误日志示例 ===
+2025-07-26 13:25:58 | ERROR    | __main__:demo_error_logging:147 - 计算错误
+[33m[1mTraceback (most recent call last):[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m267[0m, in [35m<module>[0m
+    [1mmain[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function main at 0x10773f740>[0m
+
+  File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m248[0m, in [35mmain[0m
+    [1mdemo_error_logging[0m[1m([0m[1m)[0m
+    [36m└ [0m[36m[1m<function demo_error_logging at 0x10773f560>[0m
+
+> File "[32m/Users/harrytang/Documents/GitHub/loguru-suite/examples/enterprise-demo/[0m[32m[1mmain.py[0m", line [33m145[0m, in [35mdemo_error_logging[0m
+    [1mresult[0m [35m[1m=[0m [34m[1m10[0m [35m[1m/[0m [34m[1m0[0m
+
+[31m[1mZeroDivisionError[0m:[1m division by zero[0m
+2025-07-26 13:25:58 | INFO     | __main__:demo_sls_logging:155 - === SLS 日志示例 ===
+2025-07-26 13:25:58 | INFO     | __main__:demo_sls_logging:158 - 企业级日志记录
+2025-07-26 13:25:58 | WARNING  | __main__:demo_sls_logging:166 - 安全事件
+2025-07-26 13:25:58 | INFO     | __main__:demo_sls_logging:175 - Enterprise Demo 测试日志
+2025-07-26 13:25:58 | INFO     | __main__:main:253 - Enterprise Demo 运行完成
