@@ -11,7 +11,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 from loguru import logger
 
-from yai_loguru_sinks import create_sls_sink
+from yai_loguru_sinks.internal.factory import create_sls_sink
 
 
 class TestUserScenarios:
