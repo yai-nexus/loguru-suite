@@ -75,14 +75,27 @@ class AsyncHandler:
             # 转换为SLS LogItem格式
             log_items = []
             for msg in messages:
-                # 构建日志内容 - 不再在内容中添加 PackId
+                # 构建日志内容 - 包含所有字段
                 contents = [
                     ('level', msg['level']),
                     ('message', msg['message']),
                     ('module', msg['module']),
                     ('function', msg['function']),
                     ('line', str(msg['line'])),
+                    # 新增的必需字段
+                    ('app_name', msg.get('app_name', '')),
+                    ('version', msg.get('version', '')),
+                    ('environment', msg.get('environment', '')),
+                    ('category', msg.get('category', '')),
                 ]
+                
+                # 添加可选的系统信息字段
+                if 'hostname' in msg:
+                    contents.append(('hostname', msg['hostname']))
+                if 'host_ip' in msg:
+                    contents.append(('host_ip', msg['host_ip']))
+                if 'thread' in msg:
+                    contents.append(('thread', msg['thread']))
                 
                 # 添加 extra 字段（如果存在）
                 if 'extra' in msg and msg['extra']:

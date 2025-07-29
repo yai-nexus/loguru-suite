@@ -1,0 +1,111 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "Python: 当前文件",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: 调试当前测试文件",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "${file}",
+                "-v",
+                "--tb=short"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}/packages/yai-loguru-sinks",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: 调试所有单元测试",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "tests/unit",
+                "-v",
+                "--tb=short"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}/packages/yai-loguru-sinks",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: 调试集成测试",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "tests/integration",
+                "-v",
+                "--tb=short"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}/packages/yai-loguru-sinks",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: 调试端到端测试",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "tests/e2e",
+                "-v",
+                "--tb=short"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}/packages/yai-loguru-sinks",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: 运行测试脚本",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/packages/yai-loguru-sinks/run_tests.py",
+            "args": [
+                "--unit",
+                "--verbose"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/packages/yai-loguru-sinks",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: Basic Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/examples/basic-demo/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/examples/basic-demo",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: Enterprise Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/examples/enterprise-demo/main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/examples/enterprise-demo",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

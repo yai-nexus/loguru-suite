@@ -115,14 +115,16 @@ class TestErrorHandling:
         """测试缺失凭证"""
         from yai_loguru_sinks.internal.factory import create_sls_sink
         
-        # 不提供凭证应该抛出异常
-        with pytest.raises((ValueError, TypeError)):
-            create_sls_sink(
-                project="test",
-                logstore="test",
-                region="cn-hangzhou"
-                # 缺少 access_key_id 和 access_key_secret
-            )
+        # 清理环境变量
+        with patch.dict(os.environ, {}, clear=True):
+            # 不提供凭证应该抛出异常
+            with pytest.raises(ValueError, match="SLS 认证信息缺失"):
+                create_sls_sink(
+                    project="test",
+                    logstore="test",
+                    region="cn-hangzhou"
+                    # 缺少 access_key_id 和 access_key_secret
+                )
 
 
 if __name__ == "__main__":

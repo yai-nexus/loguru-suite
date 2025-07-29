@@ -3,7 +3,7 @@
 
 handlers:
   # 控制台输出
-  - sink: "sys.stdout"
+  - sink: ext://sys.stdout
     level: "INFO"
     format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {message}"
     colorize: true
@@ -15,3 +15,8 @@ handlers:
     rotation: "10 MB"
     retention: "7 days"
     compression: "zip"
+    
+  # SLS 输出（使用环境变量配置）
+  - sink: "sls://yai-log-test/nexus-log?region=cn-beijing"
+    level: "WARNING"
+    format: "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} - {message}"
