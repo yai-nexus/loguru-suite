@@ -31,5 +31,18 @@ class SlsConfig:
     
     # PackId 功能默认启用，无需配置
     
+    # 新增应用信息配置
+    app_name: str = "unknown-app"
+    app_version: str = "1.0.0"
+    environment: str = "development"
+    
+    # 系统信息（可自动获取）
+    auto_detect_hostname: bool = True
+    auto_detect_host_ip: bool = True
+    auto_detect_thread: bool = False
+    
+    # 日志分类配置
+    default_category: str = "application"
+    
     # 其他配置
     compress: bool = True

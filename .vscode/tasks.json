@@ -1,0 +1,223 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "运行单元测试",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "run_tests.py",
+                "--unit",
+                "--verbose"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "运行所有测试",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "run_tests.py",
+                "--all",
+                "--coverage"
+            ],
+            "group": "test",
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "运行集成测试",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "run_tests.py",
+                "--integration",
+                "--verbose"
+            ],
+            "group": "test",
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "运行端到端测试",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "run_tests.py",
+                "--e2e",
+                "--verbose"
+            ],
+            "group": "test",
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "快速测试",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "run_tests.py",
+                "--fast"
+            ],
+            "group": "test",
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "安装依赖",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "sync"
+            ],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "代码格式化",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "black",
+                "src/",
+                "tests/"
+            ],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/packages/yai-loguru-sinks"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "运行 Basic Demo",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "main.py"
+            ],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/examples/basic-demo"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "运行 Enterprise Demo",
+            "type": "shell",
+            "command": "uv",
+            "args": [
+                "run",
+                "python",
+                "main.py"
+            ],
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/examples/enterprise-demo"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ]
+}

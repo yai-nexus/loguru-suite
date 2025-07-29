@@ -11,10 +11,26 @@ from loguru import logger
 from yai_loguru_sinks import register_protocol_parsers, create_config_from_file
 
 
+def load_environment():
+    """加载环境变量"""
+    try:
+        from dotenv import load_dotenv
+        # 加载项目根目录的 .env 文件
+        project_root = Path(__file__).parent.parent.parent
+        env_path = project_root / ".env"
+        load_dotenv(env_path)
+        print("✅ 已加载环境变量")
+    except ImportError:
+        print("⚠️ 未安装 python-dotenv，跳过 .env 文件加载")
+
+
 def main():
     """主函数 - 演示基本的日志记录功能"""
     print("🚀 Basic Demo - yai-loguru-sinks 基础使用示例")
     print("=" * 50)
+    
+    # 加载环境变量
+    load_environment()
     
     # 注册协议解析器
     register_protocol_parsers()

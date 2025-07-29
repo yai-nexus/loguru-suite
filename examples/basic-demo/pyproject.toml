@@ -11,6 +11,7 @@ dependencies = [
     "loguru>=0.7.0",
     "yai-loguru-sinks",
     "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
 ]
 
 [project.optional-dependencies]

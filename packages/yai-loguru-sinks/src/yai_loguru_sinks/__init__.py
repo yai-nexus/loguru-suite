@@ -6,6 +6,7 @@ yai-loguru-sinks: 企业级 Loguru Sink 工厂
 """
 
 from .config import register_protocol_parsers, create_config_from_dict, create_config_from_file
+from .internal.factory import create_sls_sink
 
 __version__ = "0.5.0"
 
@@ -13,5 +14,6 @@ __all__ = [
     "register_protocol_parsers", 
     "create_config_from_dict",
     "create_config_from_file",
+    "create_sls_sink",
     "__version__",
 ]
